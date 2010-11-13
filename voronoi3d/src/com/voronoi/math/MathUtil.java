@@ -23,8 +23,57 @@ public class MathUtil {
 	}
 	
 	/**
+     * Calcula o ponto que possui a mesma distância para com todos os outros.
+     * 
+     * @param points os pontos de onde se baseará o cálculo.
+     * @return o ponto equidistante a todos os informados.
+     * @deprecated NÃO SEI SE FUNCIONA. tem que fazer direito.
+     */
+	public Point3D getCircuncenter(Tetrahedron tetra) {
+	    Triangle[] triangles = tetra.getTriangles();
+	    int len = triangles.length;
+	    Point3D[] circuncenters = new Point3D[len];
+	    
+	    // obtem o circuncentro de cada triangulo
+	    for (int i = 0; i < len; i++) {
+            circuncenters[i] = getCircuncenter(triangles[i]);
+        }
+	    
+	    // o circuncentro dos circuncentros é o centro do tetraedro
+	    return getCircuncenter(circuncenters);
+	}
+	
+	/**
+	 * Calcula o ponto que possui a mesma distância para com todos os outros.
 	 * 
+	 * @param points os pontos de onde se baseará o cálculo.
+	 * @return o ponto equidistante a todos os informados.
+	 * @deprecated não funciona. tem que fazer direito.
 	 */
-	public 
+	public Point3D getCircuncenter(Triangle t) {
+	    return getCircuncenter(t.getPoints());
+	}
+	
+	/**
+	 * Calcula o ponto que possui a mesma distância para com todos os outros.
+	 * 
+	 * @param points os pontos de onde se baseará o cálculo.
+	 * @return o ponto equidistante a todos os informados.
+	 * @deprecated não funciona. tem que fazer direito.
+	 */
+	public Point3D getCircuncenter(Point3D... points) {
+	    int nums = points.length;
+	    double x = 0, y = 0, z = 0;
+	    
+	    for (int i = 0; i < nums; i++) {
+            x += points[i].getX();
+            y += points[i].getY();
+            z += points[i].getZ();
+        }
+	    
+	    return new Point3D(x/nums, y/nums, z/nums);
+	}
+	
+	
 	
 }
