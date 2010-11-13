@@ -2,26 +2,36 @@ package com.voronoi.math;
 
 public class Point3D {
 
-	private int x;
-	private int y;
-	private int z;
+	private double x;
+	private double y;
+	private double z;
 
-	public int getX() {
+	public Point3D() {
+	    this(0,0,0);
+	}
+	
+	public Point3D(double x, double y, double z) {
+	    this.x = x;
+	    this.y = y;
+	    this.z = z;
+	}
+
+    public double getX() {
 		return x;
 	}
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
-	public int getY() {
+	public double getY() {
 		return y;
 	}
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
-	public int getZ() {
+	public double getZ() {
 		return z;
 	}
-	public void setZ(int z) {
+	public void setZ(double z) {
 		this.z = z;
 	}		
 	
