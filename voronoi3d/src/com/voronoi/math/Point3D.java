@@ -35,4 +35,9 @@ public class Point3D {
 		this.z = z;
 	}		
 	
+	@Override
+	public String toString() {
+		return String.format("x = %.4f, y = %.4f, z = %.4f", x, y, z);
+	}
+	
 }
