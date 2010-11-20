@@ -5,7 +5,7 @@ public class MathUtil {
 	/**
 	 * Calcula a distância entre dois pontos
 	 */
-	public double distance(Point3D a, Point3D b){
+	public static double distance(Point3D a, Point3D b){
 		double x = Math.pow(a.getX() - b.getX(), 2);
 		double y = Math.pow(a.getY() - b.getY(), 2);
 		double z = Math.pow(a.getZ() - b.getZ(), 2);
@@ -15,7 +15,7 @@ public class MathUtil {
 	/**
 	 * Obtém o ponto no central da reta AB.
 	 */
-	public Point3D midpoint(Point3D a, Point3D b){
+	public static Point3D midpoint(Point3D a, Point3D b){
 		double x = a.getX() + ((b.getX() - a.getX()) / 2);
 		double y = a.getY() + ((b.getY() - a.getY()) / 2);
 		double z = a.getZ() + ((b.getZ() - a.getZ()) / 2);
@@ -73,7 +73,5 @@ public class MathUtil {
 	    
 	    return new Point3D(x/nums, y/nums, z/nums);
 	}
-	
-	
 	
 }
