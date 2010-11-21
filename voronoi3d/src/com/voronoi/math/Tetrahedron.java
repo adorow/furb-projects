@@ -57,5 +57,19 @@ public class Tetrahedron {
     public Point3D[] getPoints() {
         return new Point3D[] { a, b, c, d };
     }
+    
+    public Point3D getCircumcenter(){
+    	Triangle[] triangles = getTriangles();
+    	Point3D[] trianglesCircumcenter = new Point3D[triangles.length];
+    	
+    	// Obtem os circuncentros dos triangulos
+    	for (int i = 0; i < triangles.length; i++) {
+    		trianglesCircumcenter[i] = triangles[i].getCircumcenter();
+		}
+    	
+    	// TODO não sei ainda como seguir daqui...
+    	return null;
+    }
+    
 
 }

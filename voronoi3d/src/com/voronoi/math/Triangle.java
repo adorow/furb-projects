@@ -40,9 +40,16 @@ public class Triangle {
         return c;
     }
 
-    
     public Point3D[] getPoints() {
         return new Point3D[] {a,b,c };
     }
+
+	public Point3D getCircumcenter() {
+		Point3D m1 = MathUtil.midpoint(a, b);
+		Point3D m2 = MathUtil.midpoint(b, c);
+		Point3D m3 = MathUtil.midpoint(c, a);
+		
+		return null;
+	} 
 
 }
