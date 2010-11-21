@@ -2,6 +2,10 @@ package com.voronoi.math;
 
 public class MathUtil {
 
+    private MathUtil() {
+        // 'private' para que não se crie instancias deste 
+    }
+    
 	/**
 	 * Calcula a distância entre dois pontos
 	 */
@@ -29,7 +33,7 @@ public class MathUtil {
      * @return o ponto equidistante a todos os informados.
      * @deprecated NÃO SEI SE FUNCIONA. tem que fazer direito.
      */
-	public Point3D getCircuncenter(Tetrahedron tetra) {
+	public static Point3D getCircuncenter(Tetrahedron tetra) {
 	    Triangle[] triangles = tetra.getTriangles();
 	    int len = triangles.length;
 	    Point3D[] circuncenters = new Point3D[len];
@@ -50,7 +54,7 @@ public class MathUtil {
 	 * @return o ponto equidistante a todos os informados.
 	 * @deprecated não funciona. tem que fazer direito.
 	 */
-	public Point3D getCircuncenter(Triangle t) {
+	public static Point3D getCircuncenter(Triangle t) {
 	    return getCircuncenter(t.getPoints());
 	}
 	
@@ -61,7 +65,7 @@ public class MathUtil {
 	 * @return o ponto equidistante a todos os informados.
 	 * @deprecated não funciona. tem que fazer direito.
 	 */
-	public Point3D getCircuncenter(Point3D... points) {
+	public static Point3D getCircuncenter(Point3D... points) {
 	    int nums = points.length;
 	    double x = 0, y = 0, z = 0;
 	    
