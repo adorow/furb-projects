@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+
+    <managed-bean>
+        <managed-bean-name>grupos</managed-bean-name>
+        <managed-bean-class>Grupos</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>oitavas</managed-bean-name>
+        <managed-bean-class>OitavaDeFinal</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>quartas</managed-bean-name>
+        <managed-bean-class>QuartasDeFinal</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>semi</managed-bean-name>
+        <managed-bean-class>SemiFinal</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>final</managed-bean-name>
+        <managed-bean-class>Final</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>main</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>oitavas</from-outcome>
+            <to-view-id>/oitavas.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/oitavas.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>quartas</from-outcome>
+            <to-view-id>/quartas.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/quartas.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>semi</from-outcome>
+            <to-view-id>/semi.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/semi.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>final</from-outcome>
+            <to-view-id>/final.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/final.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>resumo</from-outcome>
+            <to-view-id>/resumo.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+</faces-config>

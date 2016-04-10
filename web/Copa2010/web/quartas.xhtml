@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Quartas de final</title>
+    </h:head>
+    <h:body>
+        <h:graphicImage url="/resources/images/wc2010logo.png" alt="Copa 2010 Fifa"/>
+        <h1>Prova Desenvolvimento Web - Tabela da Copa</h1>
+        <h3>Quartas de final</h3>
+        <h:form>
+            <h:dataTable value="#{quartas.jogos}" var="jogo">
+                <h:column>
+                    <h:graphicImage url="#{jogo.selecao01.bandeira}" alt="#{jogo.selecao01.pais}"/>
+                </h:column>
+                <h:column>
+                    #{jogo.selecao01.pais}
+                </h:column>
+                <h:column>
+                    <h:inputText requiredMessage="O placar deve ser informado" required="true" size="1" value="#{jogo.placarSelecao01}" />
+                </h:column>
+                <h:column>
+                    X
+                </h:column>
+                 <h:column>
+                    <h:inputText requiredMessage="O placar deve ser informado" required="true" size="1" value="#{jogo.placarSelecao02}" />
+                </h:column>
+                <h:column>
+                    #{jogo.selecao02.pais}
+                </h:column>
+                 <h:column>
+                    <h:graphicImage url="#{jogo.selecao02.bandeira}" alt="#{jogo.selecao02.pais}"/>
+                </h:column>
+             </h:dataTable>
+             <h:commandButton value="Semi-final" action="semi"/>
+        </h:form>
+    </h:body>
+</html>
+

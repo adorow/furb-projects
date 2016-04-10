@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Fase de grupos</title>
+    </h:head>
+    <h:body>
+        <h:graphicImage url="/resources/images/wc2010logo.png" alt="Copa 2010 Fifa"/>
+        <h1>Prova Desenvolvimento Web - Tabela da Copa</h1>
+        <h:form>
+         <h:dataTable value="#{grupos.grupos}" var="grupo">
+             <h:column>
+             <h3>#{grupo.nomeGrupo}</h3>
+             <h:dataTable value="#{grupo.selecoes}" var="selecao">
+                <h:column>
+                    <f:facet name="header">
+
+                    </f:facet>
+                    <h:graphicImage url="#{selecao.bandeira}" alt="#{selecao.pais}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        País
+                    </f:facet>
+                    #{selecao.pais}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Pontos
+                    </f:facet>
+                    #{selecao.pontosGanhos}
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">
+                        V
+                    </f:facet>
+                    #{selecao.vitorias}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        E
+                    </f:facet>
+                    #{selecao.empates}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        D
+                    </f:facet>
+                    #{selecao.derrotas}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        GP
+                    </f:facet>
+                    #{selecao.golsPro}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        GC
+                    </f:facet>
+                    #{selecao.golsContra}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        SG
+                    </f:facet>
+                    #{selecao.saldoGols}
+                </h:column>
+             </h:dataTable>
+             Jogos
+             <h:dataTable value="#{grupo.jogos}" var="jogo">
+                <h:column>
+                    <h:graphicImage url="#{jogo.selecao01.bandeira}" alt="#{jogo.selecao01.pais}"/>
+                </h:column>
+                <h:column>
+                    #{jogo.selecao01.pais}
+                </h:column>
+                <h:column>
+                    <h:inputText requiredMessage="O placar deve ser informado" required="true" size="1" value="#{jogo.placarSelecao01}" />
+                </h:column>
+                <h:column>
+                    X
+                </h:column>
+                 <h:column>
+                    <h:inputText requiredMessage="O placar deve ser informado" required="true" size="1" value="#{jogo.placarSelecao02}" />
+                </h:column>
+                <h:column>
+                    #{jogo.selecao02.pais}
+                </h:column>
+                 <h:column>
+                    <h:graphicImage url="#{jogo.selecao02.bandeira}" alt="#{jogo.selecao02.pais}"/>
+                </h:column>
+             </h:dataTable>
+             
+            </h:column>
+         </h:dataTable>
+         <h:commandButton value="Salvar alterações" action="#{grupos.salvarAlteracoes}"/>
+         <h:commandButton value="Oitavas-de-final" action="oitavas"/>
+      </h:form>
+    </h:body>
+</html>
