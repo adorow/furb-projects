@@ -1,0 +1,42 @@
+trabalho - q-learning
+
+www.inf.furb.br/~fds/robotica
+
+Estados: posições do braço - articulações
+
+Estado:
+(ombro, cotovelo)
+(+45, +45)
+(+45,-45)
+(-45,+45)
+(-45,-45)
+
+
+Ações:
+0 (não mover, manter estado)
+Ombro: +90º, se em -45º
+Ombro: -90º, se em +45º
+Cotovelo: +90º, se em -45º
+Cotovelo: -90º, se em +45º
+
+
+Reforço:
+Positivo: se empurrou pro lado que se deve ir (pode ser a distância percorrida)
+Negativo: se empurrou pro contrário (pode ser a distância percorrida)
+
+
+Matriz Q (de estados e ações)
+
++---------+-------+-------+-------+-------+-------+
+|         |   0   | 0 -90 | O +90 | C -90 | C +90 |
++---------+-------+-------+-------+-------+-------+
+|(-45,-45)|       |       |       |       |       |
++---------+-------+-------+-------+-------+-------+
+|(-45,+45)|       |       |       |       |       |
++---------+-------+-------+-------+-------+-------+
+|(+45,-45)|       |       |       |       |       |
++---------+-------+-------+-------+-------+-------+
+|(+45,+45)|       |       |       |       |       |
++---------+-------+-------+-------+-------+-------+
+
+Valores (recompensa) da tabela iniciam zerados.

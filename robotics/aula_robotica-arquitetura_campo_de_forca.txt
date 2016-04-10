@@ -1,0 +1,96 @@
+Robótica
+
+Arquitetura de campos de força
+
+obstáculos: possuem campo de força repulsivo
+alvo (goal): possui campo de força atrativo
+
+soma de vetores: (x1,y1)+...+(xn,yn) = (x1+...+xn, y1+...yn)
+
+
+ex:
+os pontos são:
+
+robô: (5,5)
+obstaculo1 (3,4)
+obstaculo2 (5,7)
+obstaculo3 (8,5)
+alvo (10,8)
+
+na primeira verificação, os vetores que implicam no robô são:
+(3,4->5,5)
+(5,7->5,5)
+(8,5->5,5)
+(5,5->10,8)
+
+1º passo) adotar robô como origem
+o1 = (3,4)-(5,5) = (-2,-1)
+o2 = (8,5)-(5,5) = (3,0)
+o3 = (5,7)-(5,5) = (0,2)
+a = (10,8)-(5,5) = (5,3)
+
+2º passo) inverter os vetores
+o1 = (2,1)
+o2 = (-3,0)
+o3 = (0,-2)
+// o alvo não precisa inverter, pois ele já está apontando para o lado correto
+
+3º passo) soma
+o1 = (2,1)
+o2 = (-3,0)
+o3 = (0,-2)
+a  = (5,3)
+res= (4,2)
+
+4º passo) retornar para posição do robô
+  (4,2)
++ (5,5)
+-------
+  (9,7)
+
+
+outro exemplo:
+
+
+r  = (1,1)
+o1 = (3,4)
+o2 = (5,7)
+o3 = (8,5)
+alvo (10,8)
+
+1º passo)
+o1 = (2,3)
+o2 = (4,6)
+o3 = (7,4)
+a  = (9,7)
+
+2º passo)
+o1 = (-2,-3)
+o2 = (-4,-6)
+o3 = (-7,-4)
+a  = (9,7) // alvo se mantém igual
+
+3º passo)
+o1 = (-2,-3)
+o2 = (-4,-6)
+o3 = (-7,-4)
+a  =  (9,7)
+    --------
+     (-4,-6)
+
+4º passo)
+  (-4,-6)
++ ( 1, 1)
+---------
+  (-3,-5)// FAIL - estamos considerando todos os obstaculos (mesmo eles estando muuuito longe), por isso o robo está voltando...
+
+solução:
+restringir os vetores na soma
+- somar (xi,yi) de obstaculo apenas se a distância do robô for menor que um limite D.    dist = sqrt(pow((x1-x2),2) + pow((y1-y2),2))
+
+mover o robô a partir do ângulo
+
+angulo = atan(y/x) // este y e x são do vetor resultante, i.e. deslocamento que deve ser feito pelo robô em x e y
+
+
+
