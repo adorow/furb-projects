@@ -1,0 +1,81 @@
+package shapes.draw.impl;
+
+import javax.media.opengl.GL;
+
+import renderer.Renderer;
+import shapes.Point2D;
+import shapes.Spline;
+import shapes.draw.ShapeDrawer;
+import color.Color;
+
+public class SplineDrawer implements ShapeDrawer<Spline> {
+
+    @Override
+    public void draw(Renderer renderer, Spline spline) {
+        GL gl = renderer.getGL();
+        
+
+        // desenha as linhas da spline
+        gl.glColor4d(0.0, 0.0, 0.0, 1.0);// sempre preto
+        drawLines(gl, spline.getPoints());
+        
+        // desenha a spline
+        Color color = spline.color();
+        gl.glColor4d(color.red(), color.green(), color.blue(), color.alpha());
+        drawSpline(gl, spline);
+    }
+    
+    private void drawSpline(GL gl, Spline spline) {
+        Point2D[] points = spline.getPoints();
+        double[] Xs = getXs(points);
+        double[] Ys = getYs(points);
+        
+        gl.glBegin(GL.GL_LINE_STRIP);
+           // distancia entre os pontos
+           final int len = 36;
+           double segment = 1.0 / len;
+        
+           for (double u = 0; u <= 1.0; u += segment) {
+              double x = bezier(u, Xs);
+              double y = bezier(u, Ys);
+            
+              // linhas
+              gl.glVertex2d(x, y);
+           }
+        gl.glEnd();
+    }
+
+    private double[] getXs(Point2D[] points) {
+        double[] Xs = new double[points.length];
+        for (int i = 0; i < Xs.length; i++) {
+            Xs[i] = points[i].getX();
+        }
+        return Xs;
+    }
+    
+    private double[] getYs(Point2D[] points) {
+        double[] Ys = new double[points.length];
+        for (int i = 0; i < Ys.length; i++) {
+            Ys[i] = points[i].getY();
+        }
+        return Ys;
+    }
+
+    private void drawLines(GL gl, Point2D[] points) {
+        gl.glBegin(GL.GL_LINE_STRIP);
+            for (Point2D point : points) {
+                gl.glVertex2d(point.getX(), point.getY());
+            }
+        gl.glEnd();
+    }
+
+    private double bezier(double u, double[] p) {
+        double p0 = (Math.pow(1-u, 3) * p[0]);//(1-u)^3 * p0
+        double p1 = (3 * u * Math.pow(1-u, 2) * p[1]);//3u * (1-u)^2 * p1
+        double p2 = 3*(Math.pow(u, 2) * (1-u) * p[2]);//(3u)^2 * (1-u) * p2 
+        double p3 = (Math.pow(u, 3)*p[3]);//u^3 * p3
+        
+        return p0 + p1 + p2 + p3;
+    }
+
+}

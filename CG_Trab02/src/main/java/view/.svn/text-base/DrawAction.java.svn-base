@@ -1,0 +1,7 @@
+package view;
+
+public enum DrawAction {
+	
+	SPLINE, OPEM_POLYGON, CLOSED_POLYGON, CIRCLE, SELECTION, PAN;
+
+}

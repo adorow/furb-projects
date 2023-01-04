@@ -1,0 +1,12 @@
+package shapes.impl;
+
+import shapes.BoundingBox;
+
+public abstract class DefaultBoundingBox extends DefaultRectangle implements BoundingBox {
+
+    @Override
+    public final BoundingBox getBoundingBox() {
+        return this;// ele próprio é a BoundingBox
+    }
+
+}

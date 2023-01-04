@@ -1,0 +1,27 @@
+package shapes;
+
+import color.Color;
+
+public interface Shape extends HasBoundingBox {
+
+    void setColor(Color color);
+    
+    Color color();
+    
+    /**
+     * Indica se um determinado ponto está dentro da área ocupada por esta forma geométrica.
+     * 
+     * @param point o ponto que se deseja saber se está dentro.
+     * @return <code>true</code> se o ponto está dentro da área delimitada por esta forma geométrica, caso contrário <code>false</code>.
+     */
+    boolean contains(Point2D point);
+    
+    int getDegreeRotation();
+    
+    void setDegreeRotation(int degree);
+
+	void translate(double x, double y);
+	
+	public Point2D getTranslate();
+    
+}

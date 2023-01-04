@@ -1,0 +1,11 @@
+package shapes;
+
+
+public interface Spline extends Shape {
+
+    /** Possui 4 pontos. */
+    Point2D[] getPoints();
+    
+    Point2D getPoint(int index);
+    
+}

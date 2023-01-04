@@ -1,0 +1,5 @@
+package shapes;
+
+public interface OpenPolygon extends Polygon {
+
+}

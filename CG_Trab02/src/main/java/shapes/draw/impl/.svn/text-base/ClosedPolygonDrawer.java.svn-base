@@ -1,0 +1,55 @@
+package shapes.draw.impl;
+
+import javax.media.opengl.GL;
+
+import renderer.Renderer;
+import shapes.BoundingBox;
+import shapes.ClosedPolygon;
+import shapes.Point2D;
+import shapes.draw.ShapeDrawer;
+import color.Color;
+
+public class ClosedPolygonDrawer implements ShapeDrawer<ClosedPolygon> {
+
+    @Override
+    public void draw(Renderer renderer, ClosedPolygon cPolygon) {
+        GL gl = renderer.getGL();
+               
+        Color color = cPolygon.color();
+        gl.glColor4d(color.red(), color.green(), color.blue(), color.alpha());
+        
+      //Esquema de rotação.
+        gl.glPushMatrix();
+           	BoundingBox bb = cPolygon.getBoundingBox();
+        	
+        	float a = (float) (bb.getBottomRight().getX() - (bb.getBoundingBox().width() / 2));
+        	float b = (float) (bb.getBottomRight().getY() - (bb.getBoundingBox().height() / 2));
+        
+			gl.glTranslated(a, b, 0.0f);
+        	gl.glRotatef(cPolygon.getDegreeRotation(), 0, 0, 1);       	
+        	gl.glTranslated(-a, -b, 0.0f);
+
+        	//Esquema de translação.
+        	gl.glTranslated(cPolygon.getTranslate().getX(), cPolygon.getTranslate().getY(), 0.0f);
+        	drawClosedPolygon(gl, cPolygon.getPoints());        	
+
+        gl.glPopMatrix();
+    }
+
+    private void drawClosedPolygon(GL gl, Point2D[] points) {
+    	//Desenho poligono.
+        gl.glBegin(GL.GL_POLYGON);
+            for (Point2D point : points) {
+                gl.glVertex2d(point.getX(), point.getY());
+            }
+        gl.glEnd();
+        
+        //Desenha contorno.
+        gl.glColor4d(0, 0, 0, 1);
+        gl.glBegin(GL.GL_LINE_LOOP);
+	        for (Point2D point : points) {
+	            gl.glVertex2d(point.getX(), point.getY());
+	        }
+        gl.glEnd();
+    }  
+}

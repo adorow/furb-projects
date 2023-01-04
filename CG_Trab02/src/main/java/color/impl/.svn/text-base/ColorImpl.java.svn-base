@@ -1,0 +1,46 @@
+package color.impl;
+
+import color.Color;
+
+public class ColorImpl implements Color {
+
+	public static final Color gray = new ColorImpl(0.5, 0.5, 0.5, 1);
+	
+    private double red, green, blue, alpha;
+    
+    public ColorImpl(double red, double green, double blue, double alpha) {
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+        this.alpha = alpha;
+    }
+    
+    public ColorImpl(java.awt.Color javaColor) {
+        this(toDouble(javaColor.getRed()), toDouble(javaColor.getGreen()), toDouble(javaColor.getBlue()), toDouble(javaColor.getAlpha()));
+    }
+    
+    @Override
+    public double red() {
+        return red;
+    }
+    
+    @Override
+    public double green() {
+        return green;
+    }
+    
+    @Override
+    public double blue() {
+        return blue;
+    }
+    
+    @Override
+    public double alpha() {
+        return alpha;
+    }
+
+    private static double toDouble(int intValue) {
+        return intValue / 255.0d;
+    }
+    
+}

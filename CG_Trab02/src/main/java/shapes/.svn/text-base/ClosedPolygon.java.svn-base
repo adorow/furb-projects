@@ -1,0 +1,5 @@
+package shapes;
+
+public interface ClosedPolygon extends Polygon {
+
+}

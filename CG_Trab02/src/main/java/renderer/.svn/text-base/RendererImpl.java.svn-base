@@ -1,0 +1,219 @@
+package renderer;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.media.opengl.DebugGL;
+import javax.media.opengl.GL;
+import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.GLDrawable;
+import javax.media.opengl.glu.GLU;
+
+import math.GeometryMath;
+import shapes.Circle;
+import shapes.Point2D;
+import shapes.Shape;
+import shapes.Spline;
+import shapes.draw.ShapeDrawer;
+import shapes.draw.ShapeDrawerFactory;
+import shapes.impl.CircleImpl;
+import shapes.impl.SplineImpl;
+import view.DrawAction;
+
+public class RendererImpl extends RendererStub {
+	private GL gl;
+	private GLU glu;
+	private GLAutoDrawable glDrawable;
+
+	private double size = 30.0f;
+
+	private DrawAction action;
+	private List<Shape> shapes = new ArrayList<Shape>();;
+	private Shape currentShape;
+	private int counterAux = 0;
+
+	// "render" feito logo após a inicialização do contexto OpenGL.
+	public void init(GLAutoDrawable drawable) {
+		System.out.println(" --- Exe07 ---");
+		glDrawable = drawable;
+		action = DrawAction.SELECTION;
+		gl = drawable.getGL();
+		glu = new GLU();
+		glDrawable.setGL(new DebugGL(gl));
+
+		gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	}
+
+	// método definido na interface GLEventListener.
+	// "render" feito pelo cliente OpenGL.
+	@SuppressWarnings("unchecked")
+	public void display(GLAutoDrawable arg0) {
+		gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+		gl.glMatrixMode(GL.GL_MODELVIEW);
+		gl.glLoadIdentity();
+
+		// configurar window
+		glu.gluOrtho2D(-size, size, -size, size);
+
+		// Desenha as formas
+		for (int i = 0; i < shapes.size(); i++) {
+			Shape shape = shapes.get(i);
+			ShapeDrawer drawer = ShapeDrawerFactory.getDrawer(shape.getClass());
+			drawer.draw(this, shape);
+		}
+
+		// flush
+		gl.glFlush();
+	}
+
+	@Override
+	public void keyPressed(KeyEvent ke) {
+		zoom(ke.getKeyChar());
+
+		glDrawable.display();
+	}
+
+	private void zoom(char keyChar) {
+		switch (keyChar) {
+		case '+':
+			if (size > 1) {
+				size--;
+			}
+			break;
+		case '-':
+			if (size < 300) {
+				size++;
+			}
+			break;
+		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("Clicked");
+		switch (action) {
+		case SELECTION:
+			break;
+		case PAN:
+			break;
+		case CIRCLE:
+			if (currentShape == null){
+				Circle circle = new CircleImpl();
+				circle.getCenterPoint().setXY(getOglX(e.getX()), getOglY(e.getY()));
+				currentShape = circle;
+			} else {
+				Circle circle = (Circle) currentShape;
+				circle.setRadius(GeometryMath.distance(circle.getCenterPoint(), new Point2D(getOglX(e.getX()), getOglY(e.getY()))));
+				shapes.remove(circle);
+				shapes.add(circle);
+				currentShape = null;
+			}
+			break;
+		case SPLINE:
+			if (currentShape == null){
+				Spline spline = new SplineImpl();
+				spline.getPoints()[0].setXY(getOglX(e.getX()), getOglY(e.getY()));
+				currentShape = spline;
+				counterAux = 1;
+			} else {
+				Spline spline = (Spline) currentShape;
+				spline.getPoints()[counterAux++].setXY(getOglX(e.getX()), getOglY(e.getY()));
+				shapes.remove(spline);
+				shapes.add(spline);
+				if (counterAux == 4){
+					currentShape = null;
+				}
+			}
+			break;
+		case OPEM_POLYGON:
+			break;
+		case CLOSED_POLYGON:
+			break;
+		default:
+			break;
+		}
+		glDrawable.display();
+	}
+	
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		if (action != null) {
+			switch (action) {
+			case SELECTION:
+				break;
+			case PAN:
+				break;
+			case CIRCLE:
+				if (currentShape != null) {
+					Circle circle = (Circle) currentShape;
+					circle.setRadius(GeometryMath.distance(circle.getCenterPoint(), new Point2D(getOglX(e.getX()), getOglY(e.getY()))));
+					shapes.remove(circle);
+					shapes.add(circle);
+				}
+				break;
+			case SPLINE:
+				if (currentShape != null){
+					Spline spline = (Spline) currentShape;
+					int length = spline.getPoints().length;
+					Point2D point = spline.getPoint(length -1);
+					point.setXY(getOglX(e.getX()), getOglY(e.getY()));
+				}
+				break;
+			case OPEM_POLYGON:
+				break;
+			case CLOSED_POLYGON:
+				break;
+			default:
+				break;
+			}
+			glDrawable.display();
+		}
+	}
+
+	/**
+	 * Retorna a posição no Orto do valor passado
+	 */
+	private double getOglX(int x_frame) {
+		int w_frame = glDrawable.getWidth();
+
+		double ogl_size = (size * 2);
+
+		double newX = (ogl_size * x_frame) / w_frame;
+		newX -= size;
+
+		return newX;
+	}
+
+	/**
+	 * Retorna a posição no Orto do valor passado
+	 */
+	private double getOglY(int y_frame) {
+		int h_frame = glDrawable.getHeight();
+
+		double ogl_size = (size * 2);
+
+		double newY = ogl_size - ((ogl_size * y_frame) / h_frame);
+		newY -= size;
+
+		return newY;
+	}
+
+	public GL getGL() {
+		return gl;
+	}
+
+	public GLU getGLU() {
+		return glu;
+	}
+
+	public GLDrawable getDrawable() {
+		return glDrawable;
+	}
+
+	public void setAction(DrawAction action) {
+		this.action = action;
+	}
+
+}

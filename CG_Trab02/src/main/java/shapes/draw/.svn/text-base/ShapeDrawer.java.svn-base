@@ -1,0 +1,10 @@
+package shapes.draw;
+
+import renderer.Renderer;
+import shapes.Shape;
+
+public interface ShapeDrawer<T extends Shape> {
+
+    void draw(Renderer renderer, T shape);
+    
+}

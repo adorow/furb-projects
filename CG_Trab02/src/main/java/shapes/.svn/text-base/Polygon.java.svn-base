@@ -1,0 +1,11 @@
+package shapes;
+
+public interface Polygon extends Shape {
+
+    Point2D[] getPoints();
+    
+    Point2D addNewPoint();
+
+    void removePoint(Point2D point);
+    
+}

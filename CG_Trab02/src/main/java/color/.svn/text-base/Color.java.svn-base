@@ -1,0 +1,13 @@
+package color;
+
+public interface Color {
+
+    double red();
+    
+    double green();
+    
+    double blue();
+    
+    double alpha();
+    
+}

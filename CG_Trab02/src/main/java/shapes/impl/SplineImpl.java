@@ -1,0 +1,79 @@
+package shapes.impl;
+
+import java.util.Arrays;
+
+import shapes.BoundingBox;
+import shapes.Point2D;
+import shapes.Spline;
+
+public class SplineImpl extends DefaultShape implements Spline {
+
+    private Point2D[] points;
+    
+    public SplineImpl() {
+        points = new Point2D[4];
+        for (int i = 0; i < points.length; i++) {
+            points[i] = new Point2D();
+        }
+    }
+    
+    @Override
+    public Point2D getPoint(int index) {
+        if (index < 0 || index > points.length) {
+            throw new IndexOutOfBoundsException("indice invalido:" + index);
+        }
+        return points[index];
+    }
+
+    @Override
+    public Point2D[] getPoints() {
+        return Arrays.copyOf(points, points.length);
+    }
+
+    @Override
+    public boolean contains(Point2D point) {
+        return getBoundingBox().contains(point);
+    }
+    
+    @Override
+    public BoundingBox getBoundingBox() {
+        return new SplineBoundingBox();
+    }
+
+    private class SplineBoundingBox extends DefaultBoundingBox implements BoundingBox {
+        
+        @Override
+        public Point2D getTopLeft() {
+            double topY = points[0].getY();
+            double leftX = points[0].getX();
+            
+            for (int i = 1; i < points.length; i++) {
+                double x = points[i].getX();
+                double y = points[i].getY();
+                
+                if (x < leftX) leftX = x;
+                if (y < topY) topY = y;
+            }
+            
+            return new Point2D(leftX, topY);
+        }
+
+        @Override
+        public Point2D getBottomRight() {
+            double bottomY = points[0].getY();
+            double rightX = points[0].getX();
+            
+            for (int i = 1; i < points.length; i++) {
+                double x = points[i].getX();
+                double y = points[i].getY();
+                
+                if (x > rightX) rightX = x;
+                if (y > bottomY) bottomY = y;
+            }
+            
+            return new Point2D(rightX, bottomY);
+        }
+
+    }
+
+}

@@ -1,0 +1,11 @@
+package shapes;
+
+public interface Circle extends Shape {
+
+    Point2D getCenterPoint();
+    
+    double getRadius();
+    
+    void setRadius(double radius);
+    
+}

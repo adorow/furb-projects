@@ -1,0 +1,29 @@
+package renderer;
+import java.awt.Color;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
+import javax.media.opengl.GL;
+import javax.media.opengl.GLDrawable;
+import javax.media.opengl.GLEventListener;
+import javax.media.opengl.glu.GLU;
+
+import view.DrawAction;
+
+
+public interface Renderer extends GLEventListener, KeyListener, MouseListener, MouseMotionListener {
+
+    GL getGL();
+    
+    GLU getGLU();
+    
+    GLDrawable getDrawable();
+    
+    void setAction(DrawAction action);
+
+	void setColor(Color color);
+
+	void rotate(int degree);
+    
+}
