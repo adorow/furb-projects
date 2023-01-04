@@ -8,4 +8,4 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
-rootProject.name = "JOGL_SolarSystem"
+rootProject.name = "CG_Trab02"
