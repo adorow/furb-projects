@@ -80,7 +80,7 @@ public class RendererImpl extends RendererStub {
 
         //fazer um esquema pra poder identificar que uma forma ta selecionada; botar um "boolean isSelected" ja ta valendo...;
 
-        // Desenha as formas n�o selecionadas
+        // Desenha as formas nao selecionadas
         for (int i = 0; i < shapes.size(); i++) {
             Shape shape = shapes.get(i);
             ShapeDrawer drawer = ShapeDrawerFactory.getDrawer(shape);
