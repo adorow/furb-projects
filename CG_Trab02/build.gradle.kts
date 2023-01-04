@@ -25,18 +25,8 @@ dependencies {
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.1-jre")
 
-    // implementation("org.jogamp.jogl:jogl:2.3.2")
-    // implementation("org.jogamp.gluegen:gluegen-rt:2.3.2")
     implementation("net.java.dev.jogl:jogl:1.1.1a")
     implementation("net.java.dev.gluegen:gluegen-rt:1.0b05")
-
-    // implementation("jogl:jogl:1.1.2")
-    // implementation("jogl:gluegen-rt:1.1.1")
-
-    // implementation(files(
-    //     "lib/gluegen-rt.jar",
-        // "lib/jogl.jar"
-    // ))
 }
 
 testing {
