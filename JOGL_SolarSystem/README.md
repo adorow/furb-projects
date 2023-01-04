@@ -1,7 +1,7 @@
 JOGL - Solar system
 ===================
 
-A project made with some colleagues for a Computer Graphics class ind mid 2010 at the university ([FURB](https://www.furb.br/)) - The last e-mail I found regarding this is from the 22nd of June 2010. Not all code could be recovered, so I had to recreate a few things based on the existing code (like recreating a `Planets` enum).
+A project made with some colleagues for a Computer Graphics class ind mid 2010 at the university ([FURB](https://www.furb.br/)) - The last e-mail I found regarding this is from the 22nd of June 2010. It's unlikely that this is the project's final version.
 
 I'm not sure exactly how we were running or packaging this back in the day, but we're probably running it mostly straight out of Eclipse.
 So I setup some build system to ease maintaining and running this. 
