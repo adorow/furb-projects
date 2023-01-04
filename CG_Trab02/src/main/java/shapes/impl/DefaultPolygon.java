@@ -48,11 +48,11 @@ public abstract class DefaultPolygon extends DefaultShape implements Polygon {
             // intersectou?
             if (ti >= 0 && ti <= 1) {
                 double xi = x1 + (x2 - x1) * ti;
-                // conta apenas os que estão à esquerda
+                // conta apenas os que estao a esquerda
                 if (xi < xc) countLeftIntersects++;
             }
         }
-        // é ímpar?
+        // e impar?
         return (countLeftIntersects & 1) == 1;
     }
 
@@ -67,7 +67,7 @@ public abstract class DefaultPolygon extends DefaultShape implements Polygon {
         public Point2D getTopLeft() {
             Iterator<Point2D> iter = points.iterator();
             if (!iter.hasNext()) {
-                return new Point2D();// retorna o ponto 'zero', pois não há nenhum ponto aqui nesse polígono
+                return new Point2D();// retorna o ponto 'zero', pois nao ha nenhum ponto aqui nesse poligono
             }
 
             Point2D point = iter.next();
@@ -90,7 +90,7 @@ public abstract class DefaultPolygon extends DefaultShape implements Polygon {
         public Point2D getBottomRight() {
             Iterator<Point2D> iter = points.iterator();
             if (!iter.hasNext()) {
-                return new Point2D();// retorna o ponto 'zero', pois não há nenhum ponto aqui nesse polígono
+                return new Point2D();// retorna o ponto 'zero', pois nao ha nenhum ponto aqui nesse poligono
             }
 
             Point2D point = iter.next();

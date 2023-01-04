@@ -6,13 +6,13 @@ import shapes.BoundingBox;
 import shapes.Point2D;
 
 /**
- * Classe que contém implementações que são comuns entre todo tipo de BoundingBox.
+ * Classe que contem implementacoes que sao comuns entre todo tipo de BoundingBox.
  */
 public abstract class DefaultBoundingBox extends DefaultRectangle implements BoundingBox {
 
     @Override
     public Color color() {
-        return ColorImpl.black;// a cor padrão de uma BoundingBox é preto.
+        return ColorImpl.black;// a cor padrï¿½o de uma BoundingBox ï¿½ preto.
     }
 
     public Point2D getCenter() {
@@ -26,7 +26,7 @@ public abstract class DefaultBoundingBox extends DefaultRectangle implements Bou
 
     @Override
     public final BoundingBox getBoundingBox() {
-        return this;// este objeto já é uma BoundingBox
+        return this;// este objeto ja e uma BoundingBox
     }
 
 }

@@ -34,7 +34,7 @@ import view.DrawAction;
 import color.impl.ColorImpl;
 
 /**
- * Implementação do render.
+ * Implementaï¿½ï¿½o do render.
  */
 public class RendererImpl extends RendererStub {
 
@@ -59,7 +59,7 @@ public class RendererImpl extends RendererStub {
         proportion = (double) glDrawable.getWidth() / (double) glDrawable.getHeight();
     }
 
-    // "render" feito logo após a inicialização do contexto OpenGL.
+    // "render" feito logo apï¿½s a inicializaï¿½ï¿½o do contexto OpenGL.
     public void init(GLAutoDrawable drawable) {
         glDrawable = drawable;
         gl = drawable.getGL();
@@ -68,7 +68,7 @@ public class RendererImpl extends RendererStub {
         gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
-    // método definido na interface GLEventListener. "render" feito pelo cliente
+    // mï¿½todo definido na interface GLEventListener. "render" feito pelo cliente
     // OpenGL.
     @SuppressWarnings("unchecked")
     public void display(GLAutoDrawable arg0) {
@@ -80,7 +80,7 @@ public class RendererImpl extends RendererStub {
 
         //fazer um esquema pra poder identificar que uma forma ta selecionada; botar um "boolean isSelected" ja ta valendo...;
 
-        // Desenha as formas não selecionadas
+        // Desenha as formas nï¿½o selecionadas
         for (int i = 0; i < shapes.size(); i++) {
             Shape shape = shapes.get(i);
             ShapeDrawer drawer = ShapeDrawerFactory.getDrawer(shape);
@@ -154,7 +154,7 @@ public class RendererImpl extends RendererStub {
     private void removeSelectedPoints() {
         if (selectedPoints.isEmpty()) return;
         removeSelectedPoints(shapes);
-        // não haverão shapes selecionados
+        // nï¿½o haverï¿½o shapes selecionados
         //removeSelectedPointsFromPolygons(selectedShapes);
     }
 
@@ -176,11 +176,11 @@ public class RendererImpl extends RendererStub {
             if (shape instanceof Spline) {
                 Spline spline = (Spline) shape;
                 for (int spi = 0; spi < spline.getPoints().length; spi++) {
-                    // contém algum ponto da Spline?
+                    // contï¿½m algum ponto da Spline?
                     if (selectedPoints.contains(spline.getPoint(spi))) {
-                        // então remove a Spline...
+                        // entï¿½o remove a Spline...
                         shapeList.remove(spline);
-                        // ... e todos os pontos da Spline também
+                        // ... e todos os pontos da Spline tambï¿½m
                         for (Point2D point : spline.getPoints()) {
                             selectedPoints.remove(point);
                         }
@@ -190,9 +190,9 @@ public class RendererImpl extends RendererStub {
             if (shape instanceof Circle) {
                 Circle circle = (Circle) shape;
                 if (selectedPoints.contains(circle.getCenterPoint())) {
-                    // então remove o Círculo...
+                    // entï¿½o remove o Cï¿½rculo...
                     shapeList.remove(circle);
-                    // ... e o ponto dele também
+                    // ... e o ponto dele tambï¿½m
                     selectedPoints.remove(circle.getCenterPoint());
                 }
             }
@@ -215,11 +215,11 @@ public class RendererImpl extends RendererStub {
     /**
      * Efetua o "zoom-in".
      * 
-     * @param amount a quantidade de 'pontos' do OpenGL em que será incrementado o zoom.
+     * @param amount a quantidade de 'pontos' do OpenGL em que serï¿½ incrementado o zoom.
      */
     private void zoomIn(int amount) {
         if (size > 1) {
-            // 1 é o mínimo
+            // 1 ï¿½ o mï¿½nimo
             size = Math.max(1, size - amount);
         }
     }
@@ -236,17 +236,17 @@ public class RendererImpl extends RendererStub {
     /**
      * Efetua o "zoom-out".
      * 
-     * @param amount a quantidade de 'pontos' do OpenGL em que será decrementado o zoom.
+     * @param amount a quantidade de 'pontos' do OpenGL em que sera decrementado o zoom.
      */
     private void zoomOut(int amount) {
         if (size < 300) {
-            // 300 é o máximo
+            // 300 ï¿½ o mï¿½ximo
             size = Math.min(300, size + amount);
         }
     }
 
     /**
-     * Obtém todos os objetos selecionados neste momento, e move-os um pouco para a esquerda.
+     * Obtï¿½m todos os objetos selecionados neste momento, e move-os um pouco para a esquerda.
      */
     private void moveLeft() {
         for (Shape shape : selectedShapes) {
@@ -255,7 +255,7 @@ public class RendererImpl extends RendererStub {
     }
 
     /**
-     * Obtém todos os objetos selecionados neste momento, e move-os um pouco para a direita.
+     * Obtï¿½m todos os objetos selecionados neste momento, e move-os um pouco para a direita.
      */
     private void moveRight() {
         for (Shape shape : selectedShapes) {
@@ -264,7 +264,7 @@ public class RendererImpl extends RendererStub {
     }
 
     /**
-     * Obtém todos os objetos selecionados neste momento, e move-os um pouco para cima.
+     * Obtï¿½m todos os objetos selecionados neste momento, e move-os um pouco para cima.
      */
     private void moveUp() {
         for (Shape shape : selectedShapes) {
@@ -273,7 +273,7 @@ public class RendererImpl extends RendererStub {
     }
 
     /**
-     * Obtém todos os objetos selecionados neste momento, e move-os um pouco para baixo.
+     * Obtï¿½m todos os objetos selecionados neste momento, e move-os um pouco para baixo.
      */
     private void moveDown() {
         for (Shape shape : selectedShapes) {
@@ -312,11 +312,11 @@ public class RendererImpl extends RendererStub {
                 Point2D selectedPoint = new Point2D(getOglX(e.getX()), getOglY(e.getY()));
                 boolean controlDown = e.isControlDown();
 
-                // se há shapes tenta selecioná-los antes, caso contrário tenta selecionar pontos antes..
+                // se ha shapes tenta seleciona-los antes, caso contrario tenta selecionar pontos antes..
                 if (!selectedShapes.isEmpty()) {
-                    // se selecionar um shape não precisa selecionar uma forma
+                    // se selecionar um shape nao precisa selecionar uma forma
                     if (!selectShape(selectedPoint, controlDown)) {
-                        // se não há shapes, ou o control não está pressionado, remove os shapes selecionados e tenta selecionar pontos 
+                        // se nao ha shapes, ou o control nao esta pressionado, remove os shapes selecionados e tenta selecionar pontos
                         if (selectedShapes.isEmpty() || !controlDown) {
                             unselectAllShapes();
 
@@ -325,9 +325,9 @@ public class RendererImpl extends RendererStub {
                         }
                     }
                 } else {
-                    // se selecionou ponto, não precisa selecionar forma
+                    // se selecionou ponto, nao precisa selecionar forma
                     if (!selectPoint(selectedPoint, controlDown)) {
-                        // se não houverem pontos selecionados, ou o control não estiver pressionado, tenta selecionar shapes
+                        // se nao houverem pontos selecionados, ou o control nao estiver pressionado, tenta selecionar shapes
                         if (selectedPoints.isEmpty() || !controlDown) {
                             selectedPoints.clear();
 
@@ -360,7 +360,7 @@ public class RendererImpl extends RendererStub {
                 if (currentShape == null) {
                     Spline spline = new SplineImpl();
                     Point2D[] points = spline.getPoints();
-                    // põe todos os pontos no mesmo lugar para que a Spline não
+                    // poe todos os pontos no mesmo lugar para que a Spline nao
                     // fique toda estranha com pontos em (0,0)
                     for (int i = 0; i < points.length; i++) {
                         points[i].setXY(getOglX(e.getX()), getOglY(e.getY()));
@@ -398,7 +398,7 @@ public class RendererImpl extends RendererStub {
                     OpenPolygon openPolygon = (OpenPolygon) currentShape;
                     if (e.getClickCount() == 2) {
                         Point2D[] points = openPolygon.getPoints();
-                        // remove o último ponto
+                        // remove o ï¿½ltimo ponto
                         openPolygon.removePoint(points[points.length - 1]);
                         currentShape = null;
                     } else {
@@ -426,7 +426,7 @@ public class RendererImpl extends RendererStub {
                     ClosedPolygon closedPolygon = (ClosedPolygon) currentShape;
                     if (e.getClickCount() == 2) {
                         Point2D[] points = closedPolygon.getPoints();
-                        // remove o último ponto
+                        // remove o ï¿½ltimo ponto
                         closedPolygon.removePoint(points[points.length - 1]);
                         currentShape = null;
                     } else {
@@ -510,7 +510,7 @@ public class RendererImpl extends RendererStub {
     }
 
     private boolean selectShape(Point2D selectedPoint, boolean controlDown) {
-        // retira a seleção de shapes selecionados
+        // retira a selecao de shapes selecionados
         for (int i = selectedShapes.size() - 1; i >= 0; i--) {
             Shape shape = selectedShapes.get(i);
             if (shape.contains(selectedPoint)) {
@@ -528,7 +528,7 @@ public class RendererImpl extends RendererStub {
             }
         }
 
-        // seleciona shapes não selecionados
+        // seleciona shapes nao selecionados
         for (int i = shapes.size() - 1; i >= 0; i--) {
             Shape shape = shapes.get(i);
             if (shape.contains(selectedPoint)) {
@@ -614,8 +614,8 @@ public class RendererImpl extends RendererStub {
                     double newY = getOglY(e.getY());
 
                     // altera todos os pontos restantes da Spline para o ponto
-                    // atual, para que os últimos pontos não fiquem no ponto (0,0),
-                    // o que deixa a Splina meio estranha para o usuário durante o
+                    // atual, para que os ultimos pontos nao fiquem no ponto (0,0),
+                    // o que deixa a Splina meio estranha para o usuario durante o
                     // desenho
                     for (int i = counterAux; i < length; i++) {
                         Point2D point = spline.getPoint(i);
@@ -661,7 +661,7 @@ public class RendererImpl extends RendererStub {
     }
 
     /**
-     * Retorna a posição no Orto do valor passado
+     * Retorna a posiï¿½ï¿½o no Orto do valor passado
      */
     private double getOglX(int x_frame) {
         float w_frame = glDrawable.getWidth();
@@ -671,7 +671,7 @@ public class RendererImpl extends RendererStub {
     }
 
     /**
-     * Retorna a posição no Orto do valor passado
+     * Retorna a posicao no Orto do valor passado
      */
     private double getOglY(int y_frame) {
         float h_frame = glDrawable.getHeight();
