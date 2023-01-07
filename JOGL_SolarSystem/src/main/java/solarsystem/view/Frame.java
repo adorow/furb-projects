@@ -50,23 +50,6 @@ public class Frame extends JFrame{
 		canvas.addMouseListener(renderer);
 		canvas.addMouseMotionListener(renderer);
 		canvas.requestFocus();
-		
-		
-	    addWindowListener( new WindowAdapter() {
-	        // Canvas gets focus whenever frame is activated.
-	        public void windowActivated( WindowEvent e ) {
-	          canvas.requestFocus(); 
-	          if (!animator.isAnimating()) {
-	              animator.start();
-	          }
-	        }
-	        
-	        public void windowDeactivated(WindowEvent e) {
-	            if (animator.isAnimating()) {
-	                animator.stop();
-	            }
-	        };
-	      } );
 
 	    setVisible( true );
 	    requestFocus();
@@ -77,6 +60,23 @@ public class Frame extends JFrame{
 	    animator = new FPSAnimator( canvas, 30 );
 //	    animator.setRunAsFastAsPossible( false );
 	    animator.start();
+
+
+		addWindowListener( new WindowAdapter() {
+			// Canvas gets focus whenever frame is activated.
+			public void windowActivated( WindowEvent e ) {
+				canvas.requestFocus();
+				if (!animator.isAnimating()) {
+					animator.start();
+				}
+			}
+
+			public void windowDeactivated(WindowEvent e) {
+				if (animator.isAnimating()) {
+					animator.stop();
+				}
+			};
+		} );
 	}		
 	
 	public static void main(String[] args) {
