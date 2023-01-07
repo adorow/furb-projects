@@ -19,6 +19,8 @@ From IDE, or
 ./gradlew run
 ```
 
-### Windows
+### OS support
 
-
+Windows - I was able to run in an old machine
+Linux - haven't tried
+MacOS - No success
