@@ -7,17 +7,18 @@ I'm not sure exactly how we were running or packaging this back in the day, but 
 So I setup some build system to ease maintaining and running this. 
 I also changed the original `src/{packages}` folder structure to `src/main/java/{packages}` to aid the build system.
 
+After upgrading libraries to recent ones, and adapting the code to fit new APIs, I was able to run some of this code again.
+There are .dll files for Windows, but with this latest version they aren't really used since the new packages from JOGL include native libraries.
+So it should work hopefully on many platforms.
 
 ## Running
 
+From IDE, or
+
+```shell
+./gradlew run
+```
+
 ### Windows
 
-DLLs are included, so hopefully that should work (haven't tested it yet).
 
-### Linux
-
-Haven't tried.
-
-### MacOS
-
-Libraries are missing, so currently doesn't work.

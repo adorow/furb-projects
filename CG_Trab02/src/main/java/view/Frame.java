@@ -62,7 +62,7 @@ public class Frame extends JFrame {
          * Cria um objeto GLCapabilities para especificar o n�mero de bits por
          * pixel para RGBA
          */
-        GLProfile glProfile = GLProfile.get(GLProfile.GL3);
+        GLProfile glProfile = GLProfile.get(GLProfile.GL2);
         GLCapabilities glCaps = new GLCapabilities(glProfile); // fixme: original: new GLCapabilities()
         glCaps.setRedBits(8);
         glCaps.setBlueBits(8);
