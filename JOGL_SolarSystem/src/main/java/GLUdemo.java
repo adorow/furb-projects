@@ -1,5 +1,6 @@
-import javax.media.opengl.*;
-import javax.media.opengl.glu.*;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.glu.GLUquadric;
 
 class GLUdemo 
 {
@@ -8,7 +9,7 @@ class GLUdemo
 
   public GLUdemo() {}
 
-  public void draw( GL gl, GLU glu )  
+  public void draw(GL2 gl, GLU glu )
    {
       GLUquadric qobj0 = glu.gluNewQuadric();
       glu.gluQuadricDrawStyle( qobj0, GLU.GLU_FILL );

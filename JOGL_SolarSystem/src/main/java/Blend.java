@@ -1,4 +1,4 @@
-import javax.media.opengl.*;
+import com.jogamp.opengl.GL2;
 
 class Blend {
 
@@ -12,68 +12,68 @@ class Blend {
   
   public Blend() {}
 
-  public void init( GL gl ) 
+  public void init( GL2 gl ) 
     {
-      //gl.glDisable(GL.GL_BLEND);
-      gl.glEnable(GL.GL_BLEND);
+      //gl.glDisable(GL2.GL_BLEND);
+      gl.glEnable(GL2.GL_BLEND);
 
       gl.glBlendFunc(
-	GL.GL_SRC_ALPHA, 
-	GL.GL_DST_ALPHA
-	//GL.GL_ONE_MINUS_SRC_ALPHA
+	GL2.GL_SRC_ALPHA, 
+	GL2.GL_DST_ALPHA
+	//GL2.GL_ONE_MINUS_SRC_ALPHA
 	);
     }
 
 
-  public void drawBlendPlane( GL gl, Bezier bezier ) 
+  public void drawBlendPlane( GL2 gl, Bezier bezier ) 
     {
       
-      gl.glEnable(GL.GL_BLEND);
+      gl.glEnable(GL2.GL_BLEND);
       gl.glBlendFunc(
-	//GL.GL_ONE_MINUS_DST_ALPHA,
-	GL.GL_SRC_ALPHA, 
-	GL.GL_DST_ALPHA
-	//GL.GL_ONE_MINUS_SRC_ALPHA
+	//GL2.GL_ONE_MINUS_DST_ALPHA,
+	GL2.GL_SRC_ALPHA, 
+	GL2.GL_DST_ALPHA
+	//GL2.GL_ONE_MINUS_SRC_ALPHA
 	);
       gl.glColor4f( 0.3f, 0.3f, 0.3f, 0.5f );
-      light.setSomeGrayMaterial( gl, GL.GL_FRONT_AND_BACK );
+      light.setSomeGrayMaterial( gl, GL2.GL_FRONT_AND_BACK );
 
       // Draw plane.
       final int s=4;
       gl.glRecti( -s, -s, s, s ); 
 
-      gl.glDisable(GL.GL_BLEND);
+      gl.glDisable(GL2.GL_BLEND);
     }
 
 
-  public void drawColredCircles( GL gl) 
+  public void drawColredCircles( GL2 gl)
     {
-      gl.glShadeModel( GL.GL_SMOOTH );
+      gl.glShadeModel( GL2.GL_SMOOTH );
 
 //       gl.glBlendFunc(
-// 	//GL.GL_SRC_ALPHA, 
-// 	//GL.GL_DST_ALPHA
-// 	//GL.GL_ONE_MINUS_SRC_ALPHA
+// 	//GL2.GL_SRC_ALPHA, 
+// 	//GL2.GL_DST_ALPHA
+// 	//GL2.GL_ONE_MINUS_SRC_ALPHA
 // 	);
 
       gl.glBlendFuncSeparate(
-	//GL.GL_SRC_ALPHA, 
-	GL.GL_ONE_MINUS_DST_ALPHA,
-	GL.GL_DST_ALPHA,
-	//GL.GL_ONE_MINUS_SRC_ALPHA,
-	GL.GL_ONE, 
-	//GL.GL_DST_ALPHA
-	GL.GL_ZERO
+	//GL2.GL_SRC_ALPHA, 
+	GL2.GL_ONE_MINUS_DST_ALPHA,
+	GL2.GL_DST_ALPHA,
+	//GL2.GL_ONE_MINUS_SRC_ALPHA,
+	GL2.GL_ONE, 
+	//GL2.GL_DST_ALPHA
+	GL2.GL_ZERO
 	);
 
       gl.glBlendFuncSeparate(
-	//GL.GL_SRC_ALPHA, 
-	GL.GL_SRC_ALPHA,
-	GL.GL_DST_ALPHA,
-	//GL.GL_ONE_MINUS_SRC_ALPHA,
-	GL.GL_ONE, 
-	//GL.GL_DST_ALPHA
-	GL.GL_ONE
+	//GL2.GL_SRC_ALPHA, 
+	GL2.GL_SRC_ALPHA,
+	GL2.GL_DST_ALPHA,
+	//GL2.GL_ONE_MINUS_SRC_ALPHA,
+	GL2.GL_ONE, 
+	//GL2.GL_DST_ALPHA
+	GL2.GL_ONE
 	);
 
       gl.glColor4f( 0f, 1f, 0f, 1f ); // green
@@ -85,13 +85,13 @@ class Blend {
 
 /*
   gl.glBlendFuncSeparate(
-  //GL.GL_SRC_ALPHA, 
-  GL.GL_SRC_ALPHA,
-  GL.GL_DST_ALPHA,
-  //GL.GL_ONE_MINUS_SRC_ALPHA,
-  GL.GL_ONE, 
-  //GL.GL_DST_ALPHA
-  GL.GL_ONE
+  //GL2.GL_SRC_ALPHA, 
+  GL2.GL_SRC_ALPHA,
+  GL2.GL_DST_ALPHA,
+  //GL2.GL_ONE_MINUS_SRC_ALPHA,
+  GL2.GL_ONE, 
+  //GL2.GL_DST_ALPHA
+  GL2.GL_ONE
   );
 
   gl.glColor4f( 0f, 1f, 0f, 0.5f ); // green

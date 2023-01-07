@@ -13,14 +13,14 @@ Information about the model is printed to stdout.
  */
 
 
+import com.jogamp.opengl.GL2;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-
-import javax.media.opengl.GL;
 
 
 public class BlenderOBJ {
@@ -40,12 +40,12 @@ public class BlenderOBJ {
     private float maxSize; // for scaling the model
     private int modelDispList; // the model's display list
 
-    public BlenderOBJ(String nm, float sz, GL gl, boolean showDetails) {
+    public BlenderOBJ(String nm, float sz, GL2 gl, boolean showDetails) {
         modelNm = nm;
         maxSize = sz;
         initModelData(modelNm);
 
-        loadModel(modelNm);
+        loadModel(gl, modelNm);
         centerScale();
         drawToList(gl);
 
@@ -64,14 +64,14 @@ public class BlenderOBJ {
         modelDims = new ModelDimensions();
     } // end of initModelData()
 
-    private void loadModel(String modelNm) {
+    private void loadModel(GL2 gl, String modelNm) {
         String fnm = modelNm + ".obj";
         try {
             System.out.println("Loading model from " + fnm + " ...");
 
             FileInputStream fis_model = new FileInputStream(fnm);
             BufferedReader br_model = new BufferedReader(new InputStreamReader(fis_model));
-            readModel(br_model);
+            readModel(gl, br_model);
             br_model.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -79,7 +79,7 @@ public class BlenderOBJ {
         }
     } // end of loadModel()
 
-    private void readModel(BufferedReader br) {
+    private void readModel(GL2 gl, BufferedReader br) {
         boolean isLoaded = true; // hope things will go okay
         int lineNum = 0;
         String line;
@@ -113,7 +113,7 @@ public class BlenderOBJ {
                         numFaces++;
                     } else if (line.startsWith("mtllib ")) {
                         // load material
-                        materials = new Materials(line.substring(7));
+                        materials = new Materials(gl, line.substring(7));
                     } else if (line.startsWith("usemtl ")) {
                         // use material
                         faceMats.addUse(numFaces, line.substring(7));
@@ -246,9 +246,9 @@ public class BlenderOBJ {
         }
     } // end of centerScale()
 
-    private void drawToList(GL gl) {
+    private void drawToList(GL2 gl) {
         modelDispList = gl.glGenLists(1);
-        gl.glNewList(modelDispList, GL.GL_COMPILE);
+        gl.glNewList(modelDispList, GL2.GL_COMPILE);
 
         gl.glPushMatrix();
         // render the model face-by-face
@@ -266,7 +266,7 @@ public class BlenderOBJ {
         gl.glEndList();
     } // end of drawToList()
 
-    public void draw(GL gl) {
+    public void draw(GL2 gl) {
         gl.glCallList(modelDispList);
     }
 

@@ -1,10 +1,6 @@
-import javax.media.opengl.*;
-import javax.media.opengl.glu.*;
-import com.sun.opengl.util.*; // GLUT, FPSAnimator
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-//import java.nio.ByteOrder;
+import com.jogamp.opengl.GL2;
 
+import java.nio.FloatBuffer;
 import java.util.Random;
 
 class VertexArray {
@@ -38,11 +34,11 @@ class VertexArray {
 
   ///////////////// Functions /////////////////////////
 
-  public void init( GL gl )
+  public void init( GL2 gl )
     {
-      gl.glEnableClientState( GL.GL_VERTEX_ARRAY );
-      gl.glEnableClientState( GL.GL_COLOR_ARRAY );
-      //gl.glEnableClientState( GL.GL_NORMAL_ARRAY );
+      gl.glEnableClientState( GL2.GL_VERTEX_ARRAY );
+      gl.glEnableClientState( GL2.GL_COLOR_ARRAY );
+      //gl.glEnableClientState( GL2.GL_NORMAL_ARRAY );
 
       if( useVBO ) { initVBO( gl  ); }
       initArrayData();
@@ -51,26 +47,26 @@ class VertexArray {
     }
 
 
-  public void deleteVBO( GL gl )
+  public void deleteVBO( GL2 gl )
     {
       // Switch back to using normal VertexArrays.
-      gl.glBindBuffer( GL.GL_ARRAY_BUFFER, 0 );
-      gl.glBindBuffer( GL.GL_ELEMENT_ARRAY_BUFFER, 0 );
+      gl.glBindBuffer( GL2.GL_ARRAY_BUFFER, 0 );
+      gl.glBindBuffer( GL2.GL_ELEMENT_ARRAY_BUFFER, 0 );
       gl.glDeleteBuffers( nbVBO, VBO, 0 );
     }  
 
 
-  public void initVBO ( GL gl )
+  public void initVBO ( GL2 gl )
     {
       // Check for VBO support.
 
       // Check version.
-      String versionStr = gl.glGetString( GL.GL_VERSION );
-      System.out.println( "GL version:"+versionStr ); //ddd
+      String versionStr = gl.glGetString( GL2.GL_VERSION );
+      System.out.println( "GL2 version:"+versionStr ); //ddd
       versionStr = versionStr.substring( 0, 4);
       float version = new Float( versionStr ).floatValue();
       boolean versionOK = ( version >= 1.59f ) ? true : false;
-      System.out.println( "GL version:"+versionStr+"  ->"+versionOK ); //ddd
+      System.out.println( "GL2 version:"+versionStr+"  ->"+versionOK ); //ddd
 
       // Check if extension is available.
       boolean extensionOK = gl.isExtensionAvailable
@@ -94,7 +90,7 @@ class VertexArray {
       }
       
       // We are fine.
-      gl.glGenBuffersARB( nbVBO, VBO, 0 );
+      gl.glGenBuffers( nbVBO, VBO, 0 );
     }
 
 
@@ -104,14 +100,14 @@ class VertexArray {
       //
       // Points.
       pointsData = new float[ nbValues ];
-      points = BufferUtil.newFloatBuffer( nbValues );
+      points = FloatBuffer.allocate( nbValues );
       // Colors.
       colorsData = new float[ nbValues ];
-      colors = BufferUtil.newFloatBuffer( nbValues );
+      colors = FloatBuffer.allocate( nbValues );
     }
 
 
-  private void createArrayData( GL gl )
+  private void createArrayData( GL2 gl )
     {
       for( int i=0; i < nbPoints; i++ )
       {
@@ -136,40 +132,40 @@ class VertexArray {
     }
 
 
-  private void initDataPointers( GL gl )
+  private void initDataPointers( GL2 gl )
     {
       if( useVBO ) 
       {
 	// Points.
-	gl.glBindBufferARB( GL.GL_ARRAY_BUFFER_ARB, VBO[0] );
+	gl.glBindBuffer( GL2.GL_ARRAY_BUFFER_BINDING, VBO[0] );
 	// Copy data to the server into the VBO.
-	gl.glBufferDataARB( GL.GL_ARRAY_BUFFER_ARB,
+	gl.glBufferData( GL2.GL_ARRAY_BUFFER_BINDING,
 			 nbValues, points,
-			 GL.GL_STATIC_DRAW_ARB );
+			 GL2.GL_STATIC_DRAW );
 	// Colors.
-	gl.glBindBuffer( GL.GL_ARRAY_BUFFER, VBO[1] );
+	gl.glBindBuffer( GL2.GL_ARRAY_BUFFER, VBO[1] );
 	// Copy data to the server into the VBO.
-	gl.glBufferData( GL.GL_ARRAY_BUFFER,
+	gl.glBufferData( GL2.GL_ARRAY_BUFFER,
 			 nbValues, colors,
-			 GL.GL_STATIC_DRAW );
+			 GL2.GL_STATIC_DRAW );
       } 
       else // Use normal VertexArrays.
       {
 	// Points.
-	gl.glVertexPointer( 3, GL.GL_FLOAT, 0, points );
+	gl.glVertexPointer( 3, GL2.GL_FLOAT, 0, points );
 	// Colors.
-	gl.glColorPointer( 3, GL.GL_FLOAT, 0, colors );
+	gl.glColorPointer( 3, GL2.GL_FLOAT, 0, colors );
       }
     }
 
 
   //////////////////////// draw /////////////////////////
 
-  public void draw( GL gl )
+  public void draw( GL2 gl )
     {
       gl.glColor3f( 0f, 1f, 0f ); 
 
-//       gl.glBegin( GL.GL_POINTS ); {
+//       gl.glBegin( GL2.GL_POINTS ); {
 // 	for( int i=0; i < nbPoints; i++ ) 
 // 	{
 // 	  gl.glVertex3fv( pointsData, i*3 );
@@ -183,12 +179,12 @@ class VertexArray {
 
       if( useVBO ) 
       {
-	gl.glBindBuffer( GL.GL_ARRAY_BUFFER_ARB, VBO[0] );
-	gl.glVertexPointer( 3, GL.GL_FLOAT, 0, 0 );
-	gl.glBindBuffer( GL.GL_ARRAY_BUFFER, VBO[1] );
-	gl.glColorPointer( 3, GL.GL_FLOAT, 0, 0 );
+	gl.glBindBuffer( GL2.GL_ARRAY_BUFFER, VBO[0] );
+	gl.glVertexPointer( 3, GL2.GL_FLOAT, 0, 0 );
+	gl.glBindBuffer( GL2.GL_ARRAY_BUFFER, VBO[1] );
+	gl.glColorPointer( 3, GL2.GL_FLOAT, 0, 0 );
       }
-      gl.glDrawArrays( GL.GL_POINTS, 0, nbPoints );
+      gl.glDrawArrays( GL2.GL_POINTS, 0, nbPoints );
     }
 
 }

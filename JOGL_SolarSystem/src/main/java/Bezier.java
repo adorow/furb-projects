@@ -1,5 +1,4 @@
-import javax.media.opengl.*;
-import javax.media.opengl.glu.*;
+import com.jogamp.opengl.GL2;
 
 // 2D and 3D Bezier curves (and surfaces).
 // Analytical curves.
@@ -20,11 +19,11 @@ class Bezier {
   public Bezier() {}
 
 
-  public void drawSpiral( GL gl ) 
+  public void drawSpiral( GL2 gl )
     {
       float r=0.5f;
       float x, y, z;
-      gl.glBegin(GL.GL_POINTS); {
+      gl.glBegin(GL2.GL_POINTS); {
 	for( float a = 0;  a <= 1440; a+=5 ) {
 	  r -= 0.5f / 300;
 	  float ang = (float) Math.toRadians( a );
@@ -37,7 +36,7 @@ class Bezier {
       } gl.glEnd();
     }
 
-  public void draw2DBezier( GL gl ) 
+  public void draw2DBezier( GL2 gl )
     {
       final int nbCtrlPoints = 6;
       final int sizeCtrlPoints = nbCtrlPoints * 3;
@@ -58,15 +57,15 @@ class Bezier {
       if( ctrlPoints.length != sizeCtrlPoints ) {
 	System.out.println("ERROR ctrlPoints\n"); };
 
-      gl.glMap1f( GL.GL_MAP1_VERTEX_3, 
+      gl.glMap1f( GL2.GL_MAP1_VERTEX_3,
 		  0.0f, 1.0f, 3, 
 		  nbCtrlPoints, ctrlPoints, 0 );
 
-      gl.glEnable( GL.GL_MAP1_VERTEX_3 );
+      gl.glEnable( GL2.GL_MAP1_VERTEX_3 );
 
 
       // Draw ctrlPoints.
-      gl.glBegin(GL.GL_POINTS); {
+      gl.glBegin(GL2.GL_POINTS); {
 	for( int i=0; i < sizeCtrlPoints; i+=3 ) {
 	  gl.glVertex3f( ctrlPoints[i],
 			 ctrlPoints[i+1],
@@ -76,7 +75,7 @@ class Bezier {
 
 
       gl.glMapGrid1f( 20, 0f, 1f);
-      gl.glEvalMesh1( GL.GL_POINT, 0, 20 );
+      gl.glEvalMesh1( GL2.GL_POINT, 0, 20 );
       /*
 	
       // Draw courve.

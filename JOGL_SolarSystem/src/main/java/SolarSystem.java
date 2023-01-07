@@ -1,6 +1,7 @@
-import javax.media.opengl.*;
-import javax.media.opengl.glu.*;
-import com.sun.opengl.util.*; 
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.util.FPSAnimator;
+import com.jogamp.opengl.util.gl2.GLUT;
 
 class SolarSystem {
 
@@ -27,7 +28,7 @@ class SolarSystem {
     }
 
 
- public void draw( GL gl, GLU glu, GLUT glut ) 
+ public void draw(GL2 gl, GLU glu, GLUT glut )
     {
        //GLUquadric qobj0 = glu.gluNewQuadric();
        //glu.gluQuadricDrawStyle( qobj0, GLU.GLU_LINE );

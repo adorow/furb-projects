@@ -1,7 +1,6 @@
+import com.jogamp.opengl.awt.GLCanvas;
+
 import java.awt.event.*;
-//import java.awt.Frame;
-import javax.media.opengl.GLCanvas;
-import javax.media.opengl.GLAutoDrawable;
 
 // The UserEventMediator take user input and calls 
 // the corresponding functions from local module, 
@@ -46,7 +45,7 @@ KeyListener, MouseListener, MouseMotionListener
     InputDevice inputDevice,
     View view, 
     Light light, 
-    GLCanvas canvas ) 
+    GLCanvas canvas )
     {
       this.base  = base;
       this.inputDevice  = inputDevice;

@@ -1,10 +1,9 @@
-import java.applet.*;
+import com.jogamp.opengl.awt.GLCanvas;
+
+import java.applet.Applet;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseEvent;
 import java.awt.image.MemoryImageSource;
-import java.awt.Point;
-import java.awt.Robot;
-import javax.media.opengl.GLCanvas;
 
 // Take care of the (mouse) cursor.
 // It may be requiered not to leave the window.

@@ -1,16 +1,14 @@
 package solarsystem.model.common;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
-
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.util.gl2.GLUT;
 import solarsystem.model.Planet;
 import solarsystem.model.Star;
 import solarsystem.model.Sun;
 
-import com.sun.opengl.util.GLUT;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class DefaultSun implements Sun {
 
@@ -81,7 +79,7 @@ public abstract class DefaultSun implements Sun {
     }
 
     @Override
-    public void draw(GL gl, GLU glu, GLUT glut) {
+    public void draw(GL2 gl, GLU glu, GLUT glut) {
         gl.glPushMatrix();
         
         doDraw(gl, glu, glut);
@@ -93,6 +91,6 @@ public abstract class DefaultSun implements Sun {
         gl.glPopMatrix();
     }
     
-    protected abstract void doDraw(GL gl, GLU glu, GLUT glut);
+    protected abstract void doDraw(GL2 gl, GLU glu, GLUT glut);
     
 }

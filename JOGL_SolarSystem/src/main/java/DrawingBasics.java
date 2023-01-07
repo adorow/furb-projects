@@ -1,4 +1,4 @@
-import javax.media.opengl.*;
+import com.jogamp.opengl.GL2;
 //import java.lang.Math.*;
 
 class DrawingBasics {
@@ -10,43 +10,43 @@ class DrawingBasics {
   DrawingBasics() {}
 
   public void initAliasingAndFog
-  ( GL gl, boolean aliasing, boolean fog ) 
+  ( GL2 gl, boolean aliasing, boolean fog ) 
     {
       if( aliasing ) {
-	//gl.glEnable( GL.GL_POINT_SMOOTH );
-	gl.glEnable( GL.GL_LINE_SMOOTH );
-	//gl.glDisable( GL.GL_LINE_SMOOTH );
+	//gl.glEnable( GL2.GL_POINT_SMOOTH );
+	gl.glEnable( GL2.GL_LINE_SMOOTH );
+	//gl.glDisable( GL2.GL_LINE_SMOOTH );
       }
       
       if( fog ) {
-	gl.glEnable( GL.GL_FOG );
-	gl.glHint( GL.GL_FOG_HINT, GL.GL_NICEST );
-	//gl.glHint( GL.GL_FOG_HINT, GL.GL_FASTEST );
+	gl.glEnable( GL2.GL_FOG );
+	gl.glHint( GL2.GL_FOG_HINT, GL2.GL_NICEST );
+	//gl.glHint( GL2.GL_FOG_HINT, GL2.GL_FASTEST );
 	
-	//gl.glFogi( GL.GL_FOG_MODE, GL.GL_EXP );
-	//gl.glFogi( GL.GL_FOG_MODE, GL.GL_EXP2 );
-	//gl.glFogi( GL.GL_FOG_MODE, GL.GL_LINEAR );
+	//gl.glFogi( GL2.GL_FOG_MODE, GL2.GL_EXP );
+	//gl.glFogi( GL2.GL_FOG_MODE, GL2.GL_EXP2 );
+	//gl.glFogi( GL2.GL_FOG_MODE, GL2.GL_LINEAR );
 	
-	gl.glFogf( GL.GL_FOG_DENSITY, 1.0f );
-	gl.glFogf( GL.GL_FOG_START, 0 );
-	gl.glFogf( GL.GL_FOG_END, 4);
+	gl.glFogf( GL2.GL_FOG_DENSITY, 1.0f );
+	gl.glFogf( GL2.GL_FOG_START, 0 );
+	gl.glFogf( GL2.GL_FOG_END, 4);
 	float fogColor[] = {0, 0, 0, 0.5f };
-	gl.glFogfv( GL.GL_FOG_COLOR, fogColor, 0 );
+	gl.glFogfv( GL2.GL_FOG_COLOR, fogColor, 0 );
 
 	// Select how fog distance is calculated.
-	//gl.glFogi( GL.GL_FOG_COORD_SRC, GL.GL_FOG_COORD );
-	gl.glFogi( GL.GL_FOG_COORD_SRC, GL.GL_FRAGMENT_DEPTH );
+	//gl.glFogi( GL2.GL_FOG_COORD_SRC, GL2.GL_FOG_COORD );
+	gl.glFogi( GL2.GL_FOG_COORD_SRC, GL2.GL_FRAGMENT_DEPTH );
       }
     }
 
-  public void drawPoints( GL gl ) 
+  public void drawPoints(GL2 gl ) 
     {
       float val[] = new float[2];
-      gl.glGetFloatv( GL.GL_POINT_SIZE_RANGE, val, 0 );
+      gl.glGetFloatv( GL2.GL_POINT_SIZE_RANGE, val, 0 );
       //System.out.println("min="+val[0]+" max="+val[1]);
 
       gl.glPointSize( 100.0f );
-      gl.glBegin(GL.GL_POINTS);
+      gl.glBegin(GL2.GL_POINTS);
 
       gl.glVertex3f(  0.0f,   -0.f, 0);
       gl.glVertex3f( 0.25f,  0.25f, 0);
@@ -57,9 +57,9 @@ class DrawingBasics {
       gl.glEnd();
     }
 
-  public void draw2DPoints( GL gl ) 
+  public void draw2DPoints(GL2 gl ) 
     {
-      gl.glBegin (GL.GL_POINTS);
+      gl.glBegin (GL2.GL_POINTS);
       gl.glVertex2i (1,0);
       gl.glVertex2i (0,1);
       gl.glVertex2i (0,0);
@@ -67,9 +67,9 @@ class DrawingBasics {
       gl.glEnd ();
     }
 
-  public void drawTriangle( GL gl ) 
+  public void drawTriangle(GL2 gl ) 
     {
-      gl.glBegin(GL.GL_TRIANGLES); {
+      gl.glBegin(GL2.GL_TRIANGLES); {
 	gl.glVertex3f(0.25f, 0.25f, 0);
 	gl.glVertex3f(0.5f, 0.25f, 0);
 	gl.glVertex3f(0.25f, 0.5f, 0);
@@ -77,9 +77,9 @@ class DrawingBasics {
     }
 
 
-  public void drawColorTriangle( GL gl ) 
+  public void drawColorTriangle(GL2 gl ) 
     {
-      gl.glBegin(GL.GL_TRIANGLES);
+      gl.glBegin(GL2.GL_TRIANGLES);
 
       gl.glColor3f(1, 0, 0);
       gl.glVertex3f(0.25f, 0.25f, 0);
@@ -93,14 +93,14 @@ class DrawingBasics {
       gl.glEnd();
     }
 
-  public void drawWhiteTriangle( GL gl ) 
+  public void drawWhiteTriangle(GL2 gl ) 
     {
       gl.glColor3f(1, 1, 1);
       drawTriangle( gl );
     }
 
   public void drawTriangle
-  ( GL gl, float xc, float yc, float zc ) 
+  (GL2 gl, float xc, float yc, float zc ) 
     {
       gl.glPushMatrix();
       gl.glTranslatef( xc, yc, zc );
@@ -109,20 +109,20 @@ class DrawingBasics {
     }
 
 
-  public void drawHouse( GL gl ) 
+  public void drawHouse(GL2 gl ) 
     {
       short stripple = (short)0x33cc;
       final float thickLineWidth = 1.0f;
       final float thinLineWidth  = 1.0f;
       gl.glLineStipple( 1, stripple );
-      gl.glEnable( GL.GL_LINE_STIPPLE );
+      gl.glEnable( GL2.GL_LINE_STIPPLE );
 
       float a = 0.25f;
       float b = 0.45f;
       gl.glLineWidth( 6.0f );
-      //gl.glBegin(GL.GL_LINES);
-      //gl.glBegin(GL.GL_LINE_STRIP);
-      gl.glBegin(GL.GL_LINE_LOOP); {
+      //gl.glBegin(GL2.GL_LINES);
+      //gl.glBegin(GL2.GL_LINE_STRIP);
+      gl.glBegin(GL2.GL_LINE_LOOP); {
 	gl.glVertex3f(-a, -a, 0);
 	gl.glVertex3f( a, -a, 0);
 	gl.glVertex3f(-a,  a, 0);
@@ -134,12 +134,12 @@ class DrawingBasics {
 	gl.glVertex3f( a, -a, 0);
       } gl.glEnd();
 
-      gl.glDisable( GL.GL_LINE_STIPPLE );
+      gl.glDisable( GL2.GL_LINE_STIPPLE );
     }
 
 
 
-  public void draw3DHouseLines( GL gl ) 
+  public void draw3DHouseLines(GL2 gl ) 
     {
       float a = 0.25f;
       float b = 0.45f;
@@ -149,7 +149,7 @@ class DrawingBasics {
 
       // Front and Back
       for( float z=-c; z<=0; z+=c ) {
-	gl.glBegin(GL.GL_LINE_LOOP); {
+	gl.glBegin(GL2.GL_LINE_LOOP); {
 	  gl.glVertex3f(-a, -a, z);
 	  gl.glVertex3f( a, -a, z);
 	  gl.glVertex3f( a,  a, z);
@@ -158,7 +158,7 @@ class DrawingBasics {
 	} gl.glEnd();
       }
       // Front-back connections.
-      gl.glBegin(GL.GL_LINES); {
+      gl.glBegin(GL2.GL_LINES); {
 	gl.glVertex3f(-a, -a, -c);
 	gl.glVertex3f(-a, -a, 0);
 	gl.glVertex3f( a, -a, -c);
@@ -176,13 +176,13 @@ class DrawingBasics {
 
 
 
-  public void drawCube( GL gl, float a ) 
+  public void drawCube(GL2 gl, float a ) 
     {
 
       final float thickLineWidth = 1.0f;
       final float thinLineWidth  = 1.0f;
 
-      gl.glBegin(GL.GL_LINE_STRIP);
+      gl.glBegin(GL2.GL_LINE_STRIP);
 
       gl.glVertex3f(-a, -a, a);
       gl.glVertex3f(-a, +a, a);
@@ -198,7 +198,7 @@ class DrawingBasics {
 
       gl.glEnd();
 
-      gl.glBegin(GL.GL_LINES);
+      gl.glBegin(GL2.GL_LINES);
 
       gl.glVertex3f(-a, -a, +a);
       gl.glVertex3f(-a, -a, -a);
@@ -217,14 +217,14 @@ class DrawingBasics {
 
 
   public void drawCircle
-  ( GL gl, float xc, float yc, float zc ) 
+  (GL2 gl, float xc, float yc, float zc ) 
     {
       double r = 0.9f; // Radius.
 
-      //gl.glBegin( GL.GL_TRIANGLE_STRIP ); {
-      //gl.glPolygonMode( GL.GL_FRONT_AND_BACK, GL.GL_FILL );
-      //gl.glBegin( GL.GL_POLYGON ); {
-      gl.glBegin( GL.GL_TRIANGLE_FAN ); {
+      //gl.glBegin( GL2.GL_TRIANGLE_STRIP ); {
+      //gl.glPolygonMode( GL2.GL_FRONT_AND_BACK, GL2.GL_FILL );
+      //gl.glBegin( GL2.GL_POLYGON ); {
+      gl.glBegin( GL2.GL_TRIANGLE_FAN ); {
 	//gl.glColor4f( 0f, 0f, 1f, 0.5f );
 	gl.glVertex3f( xc, yc, zc ); // Center.
 	//gl.glColor4f( 1f, 1f, 0f, 0.5f );
@@ -243,14 +243,14 @@ class DrawingBasics {
     }
 
 
-  public void drawHouseNoInnerEdge( GL gl ) 
+  public void drawHouseNoInnerEdge(GL2 gl ) 
     {
       float a = 0.25f;
       float b = 0.45f;
 
-      gl.glPolygonMode( GL.GL_FRONT_AND_BACK, GL.GL_LINE );
+      gl.glPolygonMode( GL2.GL_FRONT_AND_BACK, GL2.GL_LINE );
 
-      gl.glBegin(GL.GL_POLYGON);
+      gl.glBegin(GL2.GL_POLYGON);
       gl.glEdgeFlag( true );
       gl.glVertex3f(-a, -a, 0);
       gl.glEdgeFlag( false );
@@ -275,7 +275,7 @@ class DrawingBasics {
 
 
   public void drawSphere
-  ( GL gl, 
+  (GL2 gl, 
     float xc, float yc, float zc, // Center.
     final float r, // Radius.
     boolean useCurrentColor ) 
@@ -342,7 +342,7 @@ class DrawingBasics {
 
 /////////////////////////////////////////////////////
 
-  public void drawAxis( GL gl, boolean withGrid ) 
+  public void drawAxis(GL2 gl, boolean withGrid ) 
     {
       final float length = 0.5f;
       final float gridStep = 0.4f;
@@ -353,20 +353,20 @@ class DrawingBasics {
 
       gl.glLineStipple( 1, stripple );
 
-      gl.glEnable( GL.GL_LINE_STIPPLE );
+      gl.glEnable( GL2.GL_LINE_STIPPLE );
       // X.
       gl.glColor3f(1, 0, 0);
       gl.glLineWidth( thinLineWidth );
-      gl.glEnable( GL.GL_LINE_STIPPLE );
-      gl.glBegin(GL.GL_LINES); {
+      gl.glEnable( GL2.GL_LINE_STIPPLE );
+      gl.glBegin(GL2.GL_LINES); {
 	gl.glVertex3f( -length, 0f, 0f );
 	gl.glVertex3f( 0f, 0f, 0f );
       } gl.glEnd();
-      gl.glDisable( GL.GL_LINE_STIPPLE );
+      gl.glDisable( GL2.GL_LINE_STIPPLE );
       //
       gl.glColor3f(0.9f, 0.1f, 0.1f);
       gl.glLineWidth( thickLineWidth );
-      gl.glBegin(GL.GL_LINES);{
+      gl.glBegin(GL2.GL_LINES);{
 	gl.glVertex3f( 0f, 0f, 0f );
 	gl.glVertex3f( length, 0f, 0f );
       } gl.glEnd();
@@ -374,31 +374,31 @@ class DrawingBasics {
       // Y.
       gl.glColor3f(0.1f, 0.8f, 0.1f);
       gl.glLineWidth( thinLineWidth );
-      gl.glEnable( GL.GL_LINE_STIPPLE );
-      gl.glBegin(GL.GL_LINES); {
+      gl.glEnable( GL2.GL_LINE_STIPPLE );
+      gl.glBegin(GL2.GL_LINES); {
 	gl.glVertex3f( 0f, -length, 0f );
 	gl.glVertex3f( 0f, 0f, 0f );
       } gl.glEnd();
-      gl.glDisable( GL.GL_LINE_STIPPLE );
+      gl.glDisable( GL2.GL_LINE_STIPPLE );
       gl.glColor3f(0, 1, 0);
       gl.glLineWidth( thickLineWidth );
-      gl.glBegin(GL.GL_LINES);{
+      gl.glBegin(GL2.GL_LINES);{
 	gl.glVertex3f( 0f, 0f, 0f );
 	gl.glVertex3f( 0f, length, 0f );
       } gl.glEnd();
       // Z.
       gl.glColor3f(0.1f, 0.1f, 0.8f);
       gl.glLineWidth( thinLineWidth );	
-      gl.glEnable( GL.GL_LINE_STIPPLE );
+      gl.glEnable( GL2.GL_LINE_STIPPLE );
       gl.glLineStipple( 1, stripple );
-      gl.glBegin(GL.GL_LINES); {
+      gl.glBegin(GL2.GL_LINES); {
 	gl.glVertex3f( 0f, 0f, -length );
 	gl.glVertex3f( 0f, 0f, 0f );
       } gl.glEnd();
-      gl.glDisable( GL.GL_LINE_STIPPLE );
+      gl.glDisable( GL2.GL_LINE_STIPPLE );
       gl.glColor3f(0, 0, 1);
       gl.glLineWidth( thickLineWidth );
-      gl.glBegin(GL.GL_LINES);{
+      gl.glBegin(GL2.GL_LINES);{
 	gl.glVertex3f( 0f, 0f, 0f );
 	gl.glVertex3f( 0f, 0f, length );
       } gl.glEnd();
@@ -408,9 +408,9 @@ class DrawingBasics {
       if( withGrid ) 
       {
 	// Draw grid.
-	gl.glEnable( GL.GL_LINE_STIPPLE );
+	gl.glEnable( GL2.GL_LINE_STIPPLE );
 	gl.glLineStipple( 1, strippleGrid );
-	gl.glBegin(GL.GL_LINES);
+	gl.glBegin(GL2.GL_LINES);
 	for( float s=-length; s<=length; s+=gridStep )
 	{
 	  // Do not draw grid near axis.
@@ -433,7 +433,7 @@ class DrawingBasics {
 	  gl.glVertex3f( 0f, +length, s );
 	}
 	gl.glEnd();
-	gl.glDisable( GL.GL_LINE_STIPPLE );
+	gl.glDisable( GL2.GL_LINE_STIPPLE );
 
       }
 

@@ -4,12 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.media.opengl.GLCanvas;
-import javax.media.opengl.GLCapabilities;
+import com.jogamp.opengl.GLProfile;
+import com.jogamp.opengl.awt.GLCanvas;
+import com.jogamp.opengl.GLCapabilities;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import com.sun.opengl.util.FPSAnimator;
+import com.jogamp.opengl.util.FPSAnimator;
 
 public class Frame extends JFrame{
 
@@ -21,7 +22,7 @@ public class Frame extends JFrame{
 	public Frame() {		
 		// Cria o frame.
 		super("Tela Principal");   
-		setSize(500,500); 
+		setSize(800,800);
 		setLocationRelativeTo(null);
 		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -30,7 +31,8 @@ public class Frame extends JFrame{
 		/* Cria um objeto GLCapabilities para especificar 
 		 * o numero de bits por pixel para RGBA
 		 */
-		GLCapabilities glCaps = new GLCapabilities();
+		GLProfile glProfile = GLProfile.get(GLProfile.GL2);
+		GLCapabilities glCaps = new GLCapabilities(glProfile);
 		//glCaps.setDoubleBuffered(true);
 		glCaps.setRedBits(8);
 		glCaps.setBlueBits(8);
@@ -48,23 +50,6 @@ public class Frame extends JFrame{
 		canvas.addMouseListener(renderer);
 		canvas.addMouseMotionListener(renderer);
 		canvas.requestFocus();
-		
-		
-	    addWindowListener( new WindowAdapter() {
-	        // Canvas gets focus whenever frame is activated.
-	        public void windowActivated( WindowEvent e ) {
-	          canvas.requestFocus(); 
-	          if (!animator.isAnimating()) {
-	              animator.start();
-	          }
-	        }
-	        
-	        public void windowDeactivated(WindowEvent e) {
-	            if (animator.isAnimating()) {
-	                animator.stop();
-	            }
-	        };
-	      } );
 
 	    setVisible( true );
 	    requestFocus();
@@ -73,8 +58,25 @@ public class Frame extends JFrame{
 
 	    // After JOGL and window setup, start the animator.
 	    animator = new FPSAnimator( canvas, 30 );
-	    animator.setRunAsFastAsPossible( false );
+//	    animator.setRunAsFastAsPossible( false );
 	    animator.start();
+
+
+		addWindowListener( new WindowAdapter() {
+			// Canvas gets focus whenever frame is activated.
+			public void windowActivated( WindowEvent e ) {
+				canvas.requestFocus();
+				if (!animator.isAnimating()) {
+					animator.start();
+				}
+			}
+
+			public void windowDeactivated(WindowEvent e) {
+				if (animator.isAnimating()) {
+					animator.stop();
+				}
+			};
+		} );
 	}		
 	
 	public static void main(String[] args) {
