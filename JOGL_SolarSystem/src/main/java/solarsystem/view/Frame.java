@@ -22,7 +22,7 @@ public class Frame extends JFrame{
 	public Frame() {		
 		// Cria o frame.
 		super("Tela Principal");   
-		setSize(500,500); 
+		setSize(800,800);
 		setLocationRelativeTo(null);
 		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

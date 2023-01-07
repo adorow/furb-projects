@@ -7,6 +7,7 @@ import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 import java.net.URL;
+import java.util.Objects;
 
 /* A Material object holds colour and texture information
 for a named material.
@@ -142,6 +143,7 @@ public class Material {
             texFnm = fnm;
             //texture = TextureIO.newTexture(new File(texFnm), false);
             URL url = ClassLoader.getSystemResource(fnm);
+            Objects.requireNonNull(url, () -> "Texture not found:" + fnm);
             texture = TextureIO.newTexture(url, false, ""); // fixme: there's also a AWSTextureIO
             texture.setTexParameteri(gl, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_NEAREST);
             texture.setTexParameteri(gl, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_NEAREST);

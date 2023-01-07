@@ -39,5 +39,5 @@ testing {
 application {
     // Define the main class for the application.
     mainClass.set("solarsystem.view.Frame")
-    // mainClass.set("JOGLbase") TODO: check all these classes
+//     mainClass.set("JOGLbase") //TODO: check all these classes
 }
