@@ -1,21 +1,20 @@
 package shapes.draw.impl;
 
-import javax.media.opengl.GL;
-
+import color.Color;
+import com.jogamp.opengl.GL2;
 import renderer.Renderer;
 import shapes.Point2D;
 import shapes.Spline;
 import shapes.draw.ShapeDrawer;
-import color.Color;
 
 /**
- * Classe responsável por desenhar uma spline.
+ * Classe responsï¿½vel por desenhar uma spline.
  */
 public class SplineDrawer implements ShapeDrawer<Spline> {
 
     @Override
     public void draw(Renderer renderer, Spline spline) {
-        GL gl = renderer.getGL();
+        GL2 gl = renderer.getGL();
 
         // desenha as linhas da spline
         gl.glColor4d(0.0, 0.0, 0.0, 1.0);// sempre preto
@@ -27,12 +26,12 @@ public class SplineDrawer implements ShapeDrawer<Spline> {
         drawSpline(gl, spline);
     }
 
-    private void drawSpline(GL gl, Spline spline) {
+    private void drawSpline(GL2 gl, Spline spline) {
         Point2D[] points = spline.getPoints();
         double[] Xs = getXs(points);
         double[] Ys = getYs(points);
 
-        gl.glBegin(GL.GL_LINE_STRIP);
+        gl.glBegin(GL2.GL_LINE_STRIP);
         // distancia entre os pontos
         final int len = 36;
         double segment = 1.0 / len;
@@ -63,8 +62,8 @@ public class SplineDrawer implements ShapeDrawer<Spline> {
         return Ys;
     }
 
-    private void drawLines(GL gl, Point2D[] points) {
-        gl.glBegin(GL.GL_LINE_STRIP);
+    private void drawLines(GL2 gl, Point2D[] points) {
+        gl.glBegin(GL2.GL_LINE_STRIP);
         for (Point2D point : points) {
             gl.glVertex2d(point.getX(), point.getY());
         }

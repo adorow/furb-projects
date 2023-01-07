@@ -7,11 +7,13 @@ import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.media.opengl.DebugGL;
-import javax.media.opengl.GL;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLDrawable;
-import javax.media.opengl.glu.GLU;
+//import javax.media.opengl.DebugGL;
+//import javax.media.opengl.GL;
+//import javax.media.opengl.GLAutoDrawable;
+//import javax.media.opengl.GLDrawable;
+//import javax.media.opengl.glu.GLU;
+import com.jogamp.opengl.*;
+import com.jogamp.opengl.glu.GLU;
 
 import math.GeometryMath;
 import math.NDC;
@@ -38,7 +40,8 @@ import color.impl.ColorImpl;
  */
 public class RendererImpl extends RendererStub {
 
-    private GL gl;
+//    private GL gl;
+    private GL2 gl;
     private GLU glu;
     private GLAutoDrawable glDrawable;
 
@@ -55,17 +58,23 @@ public class RendererImpl extends RendererStub {
     private int counterAux = 0;
 
     @Override
-    public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3, int arg4) {
-        proportion = (double) glDrawable.getWidth() / (double) glDrawable.getHeight();
+    public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
+//        proportion = (double) glDrawable.getWidth() / (double) glDrawable.getHeight();
+        proportion = (double) glDrawable.getSurfaceWidth() / (double) glDrawable.getSurfaceHeight();
     }
 
     // "render" feito logo ap�s a inicializa��o do contexto OpenGL.
     public void init(GLAutoDrawable drawable) {
         glDrawable = drawable;
-        gl = drawable.getGL();
+        gl = drawable.getGL().getGL2();
         glu = new GLU();
-        glDrawable.setGL(new DebugGL(gl));
+        glDrawable.setGL(new DebugGL2(gl));
         gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+
+    @Override
+    public void dispose(GLAutoDrawable drawable) {
+        // TODO: this wasn't here in the original
     }
 
     // m�todo definido na interface GLEventListener. "render" feito pelo cliente
@@ -73,7 +82,7 @@ public class RendererImpl extends RendererStub {
     @SuppressWarnings("unchecked")
     public void display(GLAutoDrawable arg0) {
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
-        gl.glMatrixMode(GL.GL_MODELVIEW);
+        gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();
         // configurar window
         glu.gluOrtho2D(x - (size * (proportion)), x + (size * (proportion)), y - size, y + size);
@@ -648,14 +657,16 @@ public class RendererImpl extends RendererStub {
     }
 
     private double getDiffX() {
-        float w_frame = glDrawable.getWidth();
+//        float w_frame = glDrawable.getWidth();
+        float w_frame = glDrawable.getSurfaceWidth();
 
         double half = size * proportion;
         return NDC.getDiff(0, w_frame, x - (half), x + (half));
     }
 
     private double getDiffY() {
-        float h_frame = glDrawable.getHeight();
+//        float h_frame = glDrawable.getHeight();
+        float h_frame = glDrawable.getSurfaceHeight();
 
         return NDC.getDiff(0, h_frame, y + size, y - size);
     }
@@ -664,7 +675,8 @@ public class RendererImpl extends RendererStub {
      * Retorna a posi��o no Orto do valor passado
      */
     private double getOglX(int x_frame) {
-        float w_frame = glDrawable.getWidth();
+//        float w_frame = glDrawable.getWidth();
+        float w_frame = glDrawable.getSurfaceWidth();
 
         double half = size * proportion;
         return NDC.translate(0, w_frame, x - (half), x + (half), x_frame);
@@ -674,11 +686,12 @@ public class RendererImpl extends RendererStub {
      * Retorna a posicao no Orto do valor passado
      */
     private double getOglY(int y_frame) {
-        float h_frame = glDrawable.getHeight();
+//        float h_frame = glDrawable.getHeight();
+        float h_frame = glDrawable.getSurfaceHeight();
         return NDC.translate(0, h_frame, y + size, y - size, y_frame);
     }
 
-    public GL getGL() {
+    public GL2 getGL() {
         return gl;
     }
 

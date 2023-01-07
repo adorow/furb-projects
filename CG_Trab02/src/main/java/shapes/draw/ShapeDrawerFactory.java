@@ -16,7 +16,7 @@ import shapes.draw.impl.OpenPolygonDrawer;
 import shapes.draw.impl.SplineDrawer;
 
 /**
- * Fábrica para buscar a classe responsável por desenhar um determinado tipo de forma geométrica.
+ * Fabrica para buscar a classe responsavel por desenhar um determinado tipo de forma geometrica.
  */
 public final class ShapeDrawerFactory {
 
@@ -32,11 +32,11 @@ public final class ShapeDrawerFactory {
     }
 
     /**
-     * Busca a classe responsável por desenhar uma determinada forma geométrica.
+     * Busca a classe responsavel por desenhar uma determinada forma geometrica.
      * 
      * @param <T> o formato a ser retornado.
-     * @param shape a forma cuja classe de desenho será buscada.
-     * @return a classe que é capaz de desenhar a forma informada.
+     * @param shape a forma cuja classe de desenho sera buscada.
+     * @return a classe que e capaz de desenhar a forma informada.
      */
     public static <T extends Shape> ShapeDrawer<T> getDrawer(T shape) {
         return (ShapeDrawer<T>) get(shape.getClass());
@@ -51,7 +51,7 @@ public final class ShapeDrawerFactory {
             if (Shape.class.isAssignableFrom(oClazz)) {
                 drawer = get((Class<T>) oClazz);
                 if (drawer != null) {
-                    // adiciona no mapa para agilizar as próximas buscas de Drawers
+                    // adiciona no mapa para agilizar as proximas buscas de Drawers
                     MAP.put(clazz, drawer);
                     return drawer;
                 }
