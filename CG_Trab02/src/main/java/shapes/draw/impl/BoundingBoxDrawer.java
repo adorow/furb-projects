@@ -1,21 +1,21 @@
 package shapes.draw.impl;
 
-import javax.media.opengl.GL;
-
+import color.Color;
+import com.jogamp.opengl.GL2;
 import renderer.Renderer;
 import shapes.BoundingBox;
 import shapes.Point2D;
 import shapes.draw.ShapeDrawer;
-import color.Color;
 
 /**
- * Classe responsável por desenhar uma BoundingBox.
+ * Classe responsï¿½vel por desenhar uma BoundingBox.
  */
 public class BoundingBoxDrawer implements ShapeDrawer<BoundingBox> {
 
     @Override
     public void draw(Renderer renderer, BoundingBox bbox) {
-        GL gl = renderer.getGL();
+//        GL gl = renderer.getGL();
+        GL2 gl = renderer.getGL();
 
         Color color = bbox.color();
         gl.glColor4d(color.red(), color.green(), color.blue(), color.alpha());
@@ -23,7 +23,7 @@ public class BoundingBoxDrawer implements ShapeDrawer<BoundingBox> {
         drawBB(gl, bbox);
     }
 
-    private void drawBB(GL gl, BoundingBox bbox) {
+    private void drawBB(GL2 gl, BoundingBox bbox) {
         final float pointSize = 5;
 
         Point2D topLeft = bbox.getTopLeft();
@@ -39,7 +39,7 @@ public class BoundingBoxDrawer implements ShapeDrawer<BoundingBox> {
         gl.glPointSize(pointSize);
 
         // cria os pontos da BBox
-        gl.glBegin(GL.GL_POINTS);
+        gl.glBegin(GL2.GL_POINTS);
         // top line
         gl.glVertex2d(leftX, topY);
         gl.glVertex2d(midX, topY);
@@ -58,7 +58,7 @@ public class BoundingBoxDrawer implements ShapeDrawer<BoundingBox> {
         // cria as linhas da BBox
         double lineSize = 0.5;
         double y, x;
-        gl.glBegin(GL.GL_LINES);
+        gl.glBegin(GL2.GL_LINES);
         // linha horizontal superior
         y = topY;
         x = leftX;

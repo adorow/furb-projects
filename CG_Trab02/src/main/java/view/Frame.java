@@ -5,8 +5,11 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.media.opengl.GLCanvas;
-import javax.media.opengl.GLCapabilities;
+//import javax.media.opengl.GLCanvas;
+//import javax.media.opengl.GLCapabilities;
+import com.jogamp.opengl.GLProfile;
+import com.jogamp.opengl.awt.GLCanvas;
+import com.jogamp.opengl.GLCapabilities;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -59,7 +62,8 @@ public class Frame extends JFrame {
          * Cria um objeto GLCapabilities para especificar o n�mero de bits por
          * pixel para RGBA
          */
-        GLCapabilities glCaps = new GLCapabilities();
+        GLProfile glProfile = GLProfile.get(GLProfile.GL3);
+        GLCapabilities glCaps = new GLCapabilities(glProfile); // fixme: original: new GLCapabilities()
         glCaps.setRedBits(8);
         glCaps.setBlueBits(8);
         glCaps.setGreenBits(8);
@@ -236,16 +240,16 @@ public class Frame extends JFrame {
         Runnable runLookAndFeel = new Runnable() {
 
             public void run() {
-                try {
-                    // UIManager.setLookAndFeel("org.jvnet.substance.skin.SubstanceBusinessLookAndFeel");
-                    // UIManager.setLookAndFeel("org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel");
-                    // UIManager.setLookAndFeel("org.jvnet.substance.skin.SubstanceOfficeSilver2007LookAndFeel");
-                    UIManager.setLookAndFeel("org.jvnet.substance.skin.SubstanceOfficeBlue2007LookAndFeel");
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Look And Feel Nao suportado pelo seu Java.\nTente atualiza o seu Java e executar o programa novamente.");
-                    e.printStackTrace();
-                }
-                JFrame.setDefaultLookAndFeelDecorated(true);
+//                try {
+//                    // UIManager.setLookAndFeel("org.jvnet.substance.skin.SubstanceBusinessLookAndFeel");
+//                    // UIManager.setLookAndFeel("org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel");
+//                    // UIManager.setLookAndFeel("org.jvnet.substance.skin.SubstanceOfficeSilver2007LookAndFeel");
+//                    UIManager.setLookAndFeel("org.jvnet.substance.skin.SubstanceOfficeBlue2007LookAndFeel");
+//                } catch (Exception e) {
+//                    JOptionPane.showMessageDialog(null, "Look And Feel Nao suportado pelo seu Java.\nTente atualiza o seu Java e executar o programa novamente.");
+//                    e.printStackTrace();
+//                }
+//                JFrame.setDefaultLookAndFeelDecorated(true);
                 new Frame().setVisible(true);
             }
         };

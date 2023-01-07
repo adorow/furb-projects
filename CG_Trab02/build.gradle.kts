@@ -25,8 +25,11 @@ dependencies {
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.1-jre")
 
-    implementation("net.java.dev.jogl:jogl:1.1.1a")
-    implementation("net.java.dev.gluegen:gluegen-rt:1.0b05")
+    // implementation("net.java.dev.jogl:jogl:1.1.1a")
+    // implementation("net.java.dev.gluegen:gluegen-rt:1.0b05")
+
+    implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.1")
+    implementation("org.jogamp.jogl:jogl-all-main:2.3.1")
 }
 
 testing {

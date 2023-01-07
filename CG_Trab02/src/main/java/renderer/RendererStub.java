@@ -4,19 +4,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import javax.media.opengl.GLAutoDrawable;
+//import javax.media.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GLAutoDrawable;
 
 import view.DrawAction;
 
 public abstract class RendererStub implements Renderer {
 
-    // método definido na interface GLEventListener.
+    // mï¿½todo definido na interface GLEventListener.
     // "render" feito depois que a janela foi redimensionada.
     public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3, int arg4) {
     }
 
-    // método definido na interface GLEventListener.
-    // "render" feito quando o modo ou dispositivo de exibição associado foi alterado.
+    // mï¿½todo definido na interface GLEventListener.
+    // "render" feito quando o modo ou dispositivo de exibiï¿½ï¿½o associado foi alterado.
     public void displayChanged(GLAutoDrawable arg0, boolean arg1, boolean arg2) {
     }
 

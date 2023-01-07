@@ -6,10 +6,16 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GLDrawable;
-import javax.media.opengl.GLEventListener;
-import javax.media.opengl.glu.GLU;
+//import javax.media.opengl.GL;
+//import javax.media.opengl.GLDrawable;
+//import javax.media.opengl.GLEventListener;
+//import javax.media.opengl.glu.GLU;
+
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GLDrawable;
+import com.jogamp.opengl.GLEventListener;
+import com.jogamp.opengl.glu.GLU;
 
 import view.DrawAction;
 
@@ -18,7 +24,7 @@ public interface Renderer extends GLEventListener, KeyListener, MouseListener, M
     /**
      * @return a estrutura GL associada.
      */
-    GL getGL();
+    GL2 getGL();
 
     /**
      * @return a estrutura GLU associada.
@@ -26,28 +32,28 @@ public interface Renderer extends GLEventListener, KeyListener, MouseListener, M
     GLU getGLU();
 
     /**
-     * @return a estrutura GLDrawable associada, onde serão feitos os desenhos.
+     * @return a estrutura GLDrawable associada, onde serï¿½o feitos os desenhos.
      */
     GLDrawable getDrawable();
 
     /**
-     * Altera a ação atual.
+     * Altera a aï¿½ï¿½o atual.
      * 
-     * @param action a ação de desenho a ser atribuída.
+     * @param action a aï¿½ï¿½o de desenho a ser atribuï¿½da.
      */
     void setAction(DrawAction action);
 
     /**
      * Altera a cor dos objetos selecionados no momento.
      * 
-     * @param color a cor para a qual será alterado.
+     * @param color a cor para a qual serï¿½ alterado.
      */
     void setColor(Color color);
 
     /**
      * Rotaciona os objetos selecionados.
      * 
-     * @param degrees a quantidade de graus que se fará a rotação.
+     * @param degrees a quantidade de graus que se farï¿½ a rotaï¿½ï¿½o.
      */
     void rotate(double degrees);
 
