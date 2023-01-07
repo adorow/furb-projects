@@ -1,5 +1,5 @@
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.*;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
 
 // Calculate the movement of the camera.
 // Here we ignore roll when moving.
@@ -175,7 +175,7 @@ public class View
 
   /////////////////// Set Current View ////////////////////
     
-  public void setCamera( GL gl ) 
+  public void setCamera( GL2 gl )
     {      
       if( operatenOnModel ) {
 	gl.glTranslatef( -camX, -camY , -camZ ); 
@@ -195,7 +195,7 @@ public class View
 
     }
 
-  public void setCameraLookAt( GLU glu ) 
+  public void setCameraLookAt( GLU glu )
     {
       glu.gluLookAt( 
 	camX, camY , camZ, // eye

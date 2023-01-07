@@ -1,14 +1,14 @@
-import javax.media.opengl.*;
+import com.jogamp.opengl.GL2;
 
 class StipplePattern {
 
   public StipplePattern() {}
 
-  public void drawStippledPolygon( GL gl ) 
+  public void drawStippledPolygon( GL2 gl )
     {
 
-      gl.glPolygonMode( GL.GL_FRONT_AND_BACK, GL.GL_FILL );
-      gl.glEnable( GL.GL_POLYGON_STIPPLE );
+      gl.glPolygonMode( GL2.GL_FRONT_AND_BACK, GL2.GL_FILL );
+      gl.glEnable( GL2.GL_POLYGON_STIPPLE );
       //gl.glPolygonStipple( stripe, 0 );
       gl.glPolygonStipple( fly, 0 );
 
@@ -17,7 +17,7 @@ class StipplePattern {
 
       //gl.glRecti( -1, -1, 1 , 1 ); return;
 
-      gl.glBegin(GL.GL_POLYGON);
+      gl.glBegin(GL2.GL_POLYGON);
       gl.glEdgeFlag( true );
       gl.glVertex3f(-a, -a, 0);
       gl.glEdgeFlag( false );

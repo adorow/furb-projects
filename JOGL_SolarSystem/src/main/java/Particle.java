@@ -1,4 +1,4 @@
-import javax.media.opengl.*;
+import com.jogamp.opengl.GL2;
 
 public class Particle {
 
@@ -61,7 +61,7 @@ public class Particle {
 	pos[i] += speed[i];
     }
 
-  public void draw( GL gl )
+  public void draw( GL2 gl )
     { 
       final float halfSize = size / 2f;
       final float x = pos[X]-halfSize;
@@ -69,7 +69,7 @@ public class Particle {
       final float xs = pos[X]+halfSize;
       final float ys = pos[Y]+halfSize;
       // Particle as small rectangle.
-      gl.glBegin(GL.GL_QUADS); {
+      gl.glBegin(GL2.GL_QUADS); {
 	gl.glTexCoord2f( 0f, 0f );
 	gl.glVertex3f( x, y, pos[Z] );
 	gl.glTexCoord2f( 1f, 0f );

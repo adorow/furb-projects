@@ -1,11 +1,9 @@
 package solarsystem.model.glut;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
-
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.util.gl2.GLUT;
 import solarsystem.model.common.DefaultSun;
-
-import com.sun.opengl.util.GLUT;
 
 public class Sun_AsSolidSphere extends DefaultSun {
 
@@ -19,7 +17,7 @@ public class Sun_AsSolidSphere extends DefaultSun {
 
 
     @Override
-    protected void doDraw(GL gl, GLU glu, GLUT glut) {
+    protected void doDraw(GL2 gl, GLU glu, GLUT glut) {
         gl.glColor4d(1.0, 1.0, 0.0, 1.0);// Yellow Sun
         glut.glutSolidSphere(size(), 20, 20) ;
     }

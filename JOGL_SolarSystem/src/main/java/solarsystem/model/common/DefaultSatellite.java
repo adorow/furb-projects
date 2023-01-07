@@ -1,12 +1,10 @@
 package solarsystem.model.common;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
-
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.util.gl2.GLUT;
 import solarsystem.model.Satellite;
 import solarsystem.model.util.MathUtils;
-
-import com.sun.opengl.util.GLUT;
 
 public abstract class DefaultSatellite implements Satellite {
 
@@ -61,7 +59,7 @@ public abstract class DefaultSatellite implements Satellite {
     }
     
     @Override
-    public void draw(GL gl, GLU glu, GLUT glut) {
+    public void draw(GL2 gl, GLU glu, GLUT glut) {
         gl.glPushMatrix();
         
         gl.glRotated(orbitalAngle(), 0.0, 1.0, 0.0); // rotacao (TODO: pr�prio eixo? ou em torno do planeta?)
@@ -72,6 +70,6 @@ public abstract class DefaultSatellite implements Satellite {
         gl.glPopMatrix();
     }
 
-    protected abstract void doDraw(GL gl, GLU glu, GLUT glut);
+    protected abstract void doDraw(GL2 gl, GLU glu, GLUT glut);
 
 }

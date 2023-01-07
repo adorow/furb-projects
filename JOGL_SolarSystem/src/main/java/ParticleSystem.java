@@ -1,8 +1,5 @@
-import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.media.opengl.*;
-import com.sun.opengl.util.*;
+import com.jogamp.opengl.GL2;
+
 import java.nio.ByteBuffer;
 
 public class ParticleSystem {
@@ -22,14 +19,14 @@ public class ParticleSystem {
 
   ///////////////// Functions /////////////////////////
 
-  public void init( GL gl)
+  public void init( GL2 gl)
     {
       // Particles are tranparent.
-      gl.glEnable( GL.GL_BLEND );    
-      gl.glBlendFunc( GL.GL_SRC_ALPHA, GL.GL_ONE );
+      gl.glEnable( GL2.GL_BLEND );
+      gl.glBlendFunc( GL2.GL_SRC_ALPHA, GL2.GL_ONE );
       
       // Prepare textures for paricles.
-      gl.glEnable( GL.GL_TEXTURE_2D );
+      gl.glEnable( GL2.GL_TEXTURE_2D );
       gl.glGenTextures( nbTexture, textures, 0 );
       // Square textures size.
       byte b[]; // Array for texture data.
@@ -42,15 +39,16 @@ public class ParticleSystem {
       initTexture( gl, b, 1, size );
     }
 
-  private void initTexture( GL gl, byte b[], int index, int size )
+  private void initTexture( GL2 gl, byte b[], int index, int size )
     {
-      gl.glBindTexture( GL.GL_TEXTURE_2D,textures[ index ] );
-      gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-      gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
+      gl.glBindTexture( GL2.GL_TEXTURE_2D,textures[ index ] );
+      gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
+      gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR);
       // Set texture data.
-      ByteBuffer texture = BufferUtil.newByteBuffer(b.length);
+//      ByteBuffer texture = BufferUtil.newByteBuffer(b.length);
+      ByteBuffer texture = ByteBuffer.allocate(b.length);
       texture.put( b, 0, b.length );
-      gl.glTexImage2D( GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, size, size, 0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, texture.rewind() ) ;
+      gl.glTexImage2D( GL2.GL_TEXTURE_2D, 0, GL2.GL_RGBA, size, size, 0, GL2.GL_RGBA, GL2.GL_UNSIGNED_BYTE, texture.rewind() ) ;
     }
 
   //Create particle Texture.
@@ -101,7 +99,7 @@ public class ParticleSystem {
 
   ////////////////// draw ////////////////////////////////
   
-  public void draw( GL gl )
+  public void draw( GL2 gl )
     {
 
       gl.glDepthMask( false );
@@ -128,9 +126,9 @@ public class ParticleSystem {
 
 	// Select texture and draw.
 	if( p[i].getLifetime() > 200 ) {
-	  gl.glBindTexture( GL.GL_TEXTURE_2D,textures[0] );
+	  gl.glBindTexture( GL2.GL_TEXTURE_2D,textures[0] );
 	} else {
-	  gl.glBindTexture( GL.GL_TEXTURE_2D,textures[1] );
+	  gl.glBindTexture( GL2.GL_TEXTURE_2D,textures[1] );
 	}
 	p[i].draw( gl );
 

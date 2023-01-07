@@ -1,12 +1,11 @@
 package solarsystem.model;
 
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.util.gl2.GLUT;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
-
-import com.sun.opengl.util.GLUT;
 
 public class SolarSystems implements SolarSystemObject, Orbitable<Sun> {
 
@@ -36,7 +35,7 @@ public class SolarSystems implements SolarSystemObject, Orbitable<Sun> {
     }
 
     @Override
-    public void draw(GL gl, GLU glu, GLUT glut) {
+    public void draw(GL2 gl, GLU glu, GLUT glut) {
         gl.glPushMatrix();
         
         for (Sun star : stars) {

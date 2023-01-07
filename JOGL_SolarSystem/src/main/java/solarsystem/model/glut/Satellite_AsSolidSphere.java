@@ -1,11 +1,9 @@
 package solarsystem.model.glut;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
-
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.util.gl2.GLUT;
 import solarsystem.model.common.DefaultSatellite;
-
-import com.sun.opengl.util.GLUT;
 
 public class Satellite_AsSolidSphere extends DefaultSatellite {
 
@@ -18,7 +16,7 @@ public class Satellite_AsSolidSphere extends DefaultSatellite {
     }
     
     @Override
-    protected void doDraw(GL gl, GLU glu, GLUT glut) {
+    protected void doDraw(GL2 gl, GLU glu, GLUT glut) {
         gl.glColor4d(0.0, 1.0, 0.0, 1.0);
         glut.glutSolidSphere(size(), 20, 20);
     }

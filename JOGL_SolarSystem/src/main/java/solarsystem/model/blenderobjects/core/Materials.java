@@ -1,13 +1,15 @@
 package solarsystem.model.blenderobjects.core;
 
 //------------------ inner class Materials -----------------------------------
-import com.sun.opengl.util.texture.Texture;
+
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.util.texture.Texture;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import javax.media.opengl.GL;
 
 /* This class does two main tasks:
  * it loads the material details from the MTL file, storing
@@ -24,21 +26,21 @@ public class Materials {
     private String renderMatName = null;
     private boolean usingTexture = false;
 
-    public Materials(String mtlFnm) {
+    public Materials(GL2 gl, String mtlFnm) {
         materials = new ArrayList<Material>();
 
         String mfnm = "files/" + MODEL_DIR + mtlFnm;
         try {
             System.out.println("Loading material from " + mfnm);
             BufferedReader br = new BufferedReader(new FileReader(mfnm));
-            readMaterials(br);
+            readMaterials(gl, br);
             br.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     } // end of Materials()
 
-    private void readMaterials(BufferedReader br) {
+    private void readMaterials(GL2 gl, BufferedReader br) {
         try {
             String line;
             Material currMaterial = null; // current material
@@ -58,7 +60,7 @@ public class Materials {
                 } else if (line.startsWith("map_Kd ")) {
                     // texture filename
                     String fileName = MODEL_DIR + line.substring(7);
-                    currMaterial.loadTexture(fileName);
+                    currMaterial.loadTexture(gl, fileName);
                 } else if (line.startsWith("Ka ")) {
                     // ambient colour
                     currMaterial.setKa(readTuple3(line));
@@ -119,7 +121,7 @@ public class Materials {
     } // end of showMaterials()
 
     // ----------------- using a material at render time -----------------
-    public void renderWithMaterial(String faceMat, GL gl) {
+    public void renderWithMaterial(String faceMat, GL2 gl) {
         if (!faceMat.equals(renderMatName)) {
             // is faceMat is a new material?
             renderMatName = faceMat;
@@ -137,19 +139,20 @@ public class Materials {
         }
     } // end of renderWithMaterial()
 
-    public void switchOffTex(GL gl) {
+    public void switchOffTex(GL2 gl) {
         if (usingTexture) {
-            gl.glDisable(GL.GL_TEXTURE_2D);
+            gl.glDisable(GL2.GL_TEXTURE_2D);
             usingTexture = false;
-            gl.glEnable(GL.GL_LIGHTING);
+            gl.glEnable(GL2.GL_LIGHTING);
         }
     } // end of resetMaterials()
 
-    private void switchOnTex(Texture tex, GL gl) {
-        gl.glDisable(GL.GL_LIGHTING);
-        gl.glEnable(GL.GL_TEXTURE_2D);
+    private void switchOnTex(Texture tex, GL2 gl) {
+        gl.glDisable(GL2.GL_LIGHTING);
+        gl.glEnable(GL2.GL_TEXTURE_2D);
         usingTexture = true;
-        tex.bind();
+//        tex.bind(); // fixme: was originally like this
+        tex.bind(gl);
     } // end of resetMaterials()
 
     private Texture getTexture(String matName) {
@@ -164,7 +167,7 @@ public class Materials {
         return null;
     } // end of getTexture()
 
-    private void setMaterialColors(String matName, GL gl) {
+    private void setMaterialColors(String matName, GL2 gl) {
         Material m;
         for (int i = 0; i < materials.size(); i++) {
             m = materials.get(i);

@@ -1,12 +1,12 @@
 package solarsystem.model.blenderobjects.core;
 
 //-------------------------  inner Class  -----------------------------
+
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.TextureIO;
+
 import java.net.URL;
-
-import javax.media.opengl.GL;
-
-import com.sun.opengl.util.texture.Texture;
-import com.sun.opengl.util.texture.TextureIO;
 
 /* A Material object holds colour and texture information
 for a named material.
@@ -107,28 +107,28 @@ public class Material {
         return ks;
     }
 
-    public void setMaterialColors(GL gl) {
+    public void setMaterialColors(GL2 gl) {
 
         System.out.println(" --- SET MATERIAL COLOR ---");
         if (ka != null) {
             // ambient color
             float[] colorKa = {ka.getX(), ka.getY(), ka.getZ(), 1.0f};
-            gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT, colorKa, 0);
+            gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT, colorKa, 0);
         }
         if (kd != null) {
             // diffuse color
             float[] colorKd = {kd.getX(), kd.getY(), kd.getZ(), 1.0f};
-            gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_DIFFUSE, colorKd, 0);
+            gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_DIFFUSE, colorKd, 0);
         }
         if (ks != null) {
             // specular color
             float[] colorKs = {ks.getX(), ks.getY(), ks.getZ(), 1.0f};
-            gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_SPECULAR, colorKs, 0);
+            gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SPECULAR, colorKs, 0);
         }
 
         if (ns != 0.0f) {
             // shininess
-            gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, ns);
+            gl.glMaterialf(GL2.GL_FRONT_AND_BACK, GL2.GL_SHININESS, ns);
         }
 
         if (d != 1.0f) { // alpha
@@ -137,14 +137,14 @@ public class Material {
     } // end of setMaterialColors()
 
     // --------- set/get methods for texture info --------------
-    public void loadTexture(String fnm) {
+    public void loadTexture(GL2 gl, String fnm) {
         try {
             texFnm = fnm;
             //texture = TextureIO.newTexture(new File(texFnm), false);
             URL url = ClassLoader.getSystemResource(fnm);
-            texture = TextureIO.newTexture(url, false, "");
-            texture.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
-            texture.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST);
+            texture = TextureIO.newTexture(url, false, ""); // fixme: there's also a AWSTextureIO
+            texture.setTexParameteri(gl, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_NEAREST);
+            texture.setTexParameteri(gl, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_NEAREST);
         } catch (Exception e) {
             System.out.println("Error loading texture " + texFnm);
             e.printStackTrace();

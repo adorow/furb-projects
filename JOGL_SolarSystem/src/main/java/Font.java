@@ -1,10 +1,7 @@
-import java.io.*;
-import java.nio.*;
-import java.nio.charset.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.media.opengl.*;
-import com.sun.opengl.util.*; // GLUT
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.util.gl2.GLUT;
+
+import java.nio.ByteBuffer;
 import java.text.NumberFormat;
 
 public class Font {
@@ -14,7 +11,7 @@ public class Font {
 
   public Font() {}
 
-  public void init( GL gl ) 
+  public void init( GL2 gl ) 
     {
       // Init byte buffers with letters.
       for (int i = 0; i < rasters.length; i++) {
@@ -28,13 +25,13 @@ public class Font {
       bufF.rewind();
 
     // OpenGL init.
-    gl.glShadeModel(GL.GL_FLAT);
+    gl.glShadeModel(GL2.GL_FLAT);
     makeRasterFont(gl); // Init display lists.
   }
 
-  private void makeRasterFont(GL gl) 
+  private void makeRasterFont(GL2 gl) 
     {
-      gl.glPixelStorei(GL.GL_UNPACK_ALIGNMENT, 1);
+      gl.glPixelStorei(GL2.GL_UNPACK_ALIGNMENT, 1);
 
       fontOffset = gl.glGenLists(128);
       if( fontOffset == 0 ) {
@@ -44,14 +41,14 @@ public class Font {
 	for (int i = 0; i < rasters.length; i++) 
 	{
 	  // We start the lists at ASCII Space=20
-	  gl.glNewList( fontOffset + asciiOffset + i , GL.GL_COMPILE); {
+	  gl.glNewList( fontOffset + asciiOffset + i , GL2.GL_COMPILE); {
 	    gl.glBitmap( 8, 13, 0.0f, 2.0f, 10.0f, 0.0f, buf[i] );
 	  } gl.glEndList();
 	}
       }
     }
 
-  public void printString( GL gl, String s ) 
+  public void printString( GL2 gl, String s ) 
     {
       // Charset charset = Charset.forName("iso-latin-1");
       // System.out.println("charset.name():"+charset.name() );
@@ -64,14 +61,14 @@ public class Font {
       for( int i = 0; i < strbuf.capacity(); i++ ) {
 	strbuf.put( (byte)s.charAt(i) ); }
       
-      gl.glPushAttrib(GL.GL_LIST_BIT);
+      gl.glPushAttrib(GL2.GL_LIST_BIT);
       gl.glListBase(fontOffset);
       gl.glCallLists( strbuf.capacity(),//s.length(), 
-		    GL.GL_UNSIGNED_BYTE, strbuf );
+		    GL2.GL_UNSIGNED_BYTE, strbuf );
       gl.glPopAttrib();
     }
 
-  public void draw( GL gl ) 
+  public void draw( GL2 gl ) 
     {
       drawFFF( gl );	
 
@@ -89,7 +86,7 @@ public class Font {
     }
 
 
-  public void drawFontWithGLUT( GL gl, GLUT glut ) 
+  public void drawFontWithGLUT( GL2 gl, GLUT glut )
     {
       // Fomat numbers with Java.
       NumberFormat format = NumberFormat.getNumberInstance();
@@ -107,14 +104,14 @@ public class Font {
 
 
   public void drawStringWithGLUTfont( 
-    GL gl, GLUT glut, int xPos, int yPos, 
+    GL2 gl, GLUT glut, int xPos, int yPos, 
     String s , int font) 
     {
       gl.glWindowPos2i( xPos, yPos );
       glut.glutBitmapString( font, s );
     }
 
-  public void drawFont( GL gl ) 
+  public void drawFont( GL2 gl ) 
     {
     gl.glColor3f( 1f, 1f, 1f );
     gl.glWindowPos2i(10, 120);
@@ -122,7 +119,7 @@ public class Font {
       gl.glBitmap( 8, 13, 0.0f, 2.0f, 10.0f, 0.0f, buf[i] );      
       // Wrap.
       float pos[] = new float[4];
-      gl.glGetFloatv( GL.GL_CURRENT_RASTER_POSITION, pos, 0 );
+      gl.glGetFloatv( GL2.GL_CURRENT_RASTER_POSITION, pos, 0 );
       //System.out.println("x"+pos[0]+"y"+pos[1]+"z"+pos[2] );
       if( (int)pos[0] > 260 )
       {
@@ -132,7 +129,7 @@ public class Font {
   }
 
 
-  private void drawFFF(GL gl) 
+  private void drawFFF(GL2 gl) 
     {
       gl.glColor3f( 1f, 1f, 1f ); // white
       gl.glWindowPos2i(160, 160);

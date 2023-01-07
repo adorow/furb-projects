@@ -11,9 +11,11 @@ associated vertices, normals, and tex coords indicies arrays,
 and uses those arrays to access the actual vertices, normals,
 and tex coords data for rendering the face.
  */
+
+import com.jogamp.opengl.GL2;
+
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import javax.media.opengl.GL;
 
 public class Faces {
 
@@ -87,7 +89,7 @@ public class Faces {
     } // end of addFaceVals()
 
     @SuppressWarnings("static-access")
-	public void renderFace(int i, GL gl) {
+	public void renderFace(int i, GL2 gl) {
         if (i >= facesVertIdxs.size()) {
             // i out of bounds?
             return;
